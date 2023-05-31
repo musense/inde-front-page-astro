@@ -18,7 +18,7 @@ import { animateScroll as scroll } from "react-scroll";
 // import { TitleContext } from 'views/Index';
 
 function CommonPage({ paramName, data }) {
-    // console.log("🚀 ~ file: commonPage.jsx:21 ~ CommonPage ~ data:", data)
+    console.log("🚀 ~ file: commonPage.jsx:21 ~ CommonPage ~ data:", data)
     const state = {
         clientWidth: 1920
     }

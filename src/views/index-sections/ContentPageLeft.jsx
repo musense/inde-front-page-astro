@@ -12,11 +12,6 @@ import IndexDecorationImage from "@components/IndexDecorationImage/IndexDecorati
 // import { MainContext } from "store/context";
 // import { TitleContext } from "views/Index";
 
-const item = {
-  src: '/img/content/image.png',
-  altText: `The Events You Can't Miss in Cricket This Year | All You Need to Know About Cricket`,
-};
-
 function ContentPageLeft({
   content,
   prevInfo,
@@ -66,12 +61,6 @@ function ContentPageLeft({
           <h1 className={`${styles['main-title']} title`}>{content.title}</h1>
         </div>
         <div className={styles['main-content']}>
-          {/* <img
-        className={styles['title-main-image']}
-        src={item.src}
-        alt={item.altText}
-        title={item.altText}
-      /> */}
           <div>
             <div
               className={styles['title-main-content']}
@@ -88,18 +77,6 @@ function ContentPageLeft({
               nextInfo={nextInfo}
             />}
           </div>
-          {/* 
-          <div className={styles['contentPageLeft-decoration-image-wrapper']}>
-            <IndexDecorationImage
-              marginTop={66}
-              marginBottom={52}
-              imageType={'line'}
-            />
-            <IndexDecorationImage
-              marginTop={'0rem'}
-              marginBottom={'0rem'}
-              imageType={'line'} />
-          </div> */}
 
           <div className={styles['content-side']}>
             <a href={'https://zoobet168.com/'} target="_blank" rel="noopener noreferrer" >
@@ -107,11 +84,11 @@ function ContentPageLeft({
             </a>
             <div className={styles['content-tags']}>
               <div>Tag</div>
-              {/* <div>
+              <div>
                 {content.tags.map((tag, index) =>
                   <Tag key={index} tag={tag} />
                 )}
-              </div> */}
+              </div>
             </div>
           </div>
 

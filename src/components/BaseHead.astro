@@ -6,14 +6,25 @@ import '@assets/css/bootstrap.min.css';
 export interface Props {
 	title: string;
 	description: string;
+	keywords: string;
 	image?: string;
 }
+const env: ImportMetaEnv = import.meta.env;
 
 console.log("🚀 ~ file: BaseHead.astro:13 ~ Astro.url.pathname:", Astro.url.pathname)
 console.log("🚀 ~ file: BaseHead.astro:14 ~ Astro.site:", Astro.site)
 // const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = '/placeholder-social.jpg' } = Astro.props;
+const { title, description, keywords,image = '/placeholder-social.jpg' } = Astro.props;
+
+let headTitle = title,
+headDescription = description,
+headKeywords = keywords
+if (env.DEV === true) {
+	headTitle= `DEV_${title}_DEV`
+	headDescription = `DEV_${description}_DEV`
+	headKeywords = `DEV_${keywords}_DEV`	
+}
 ---
 
 <!-- Global Metadata -->
@@ -26,20 +37,21 @@ const { title, description, image = '/placeholder-social.jpg' } = Astro.props;
 <!-- <link rel="canonical" href={canonicalURL} /> -->
 
 <!-- Primary Meta Tags -->
-<title>{title}</title>
-<meta name="title" content={title} />
-<meta name="description" content={description} />
+<title>{headTitle}</title>
+<meta name="title" content={headTitle} />
+<meta name="description" content={headDescription} />
+<meta name="keywords" content={headKeywords} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content={Astro.url} />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
+<meta property="og:title" content={headTitle} />
+<meta property="og:description" content={headDescription} />
 <meta property="og:image" content={new URL(image, Astro.url)} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={Astro.url} />
-<meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
+<meta property="twitter:title" content={headTitle} />
+<meta property="twitter:description" content={headDescription} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
