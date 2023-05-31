@@ -8,8 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "serve": "serve dist -s",
-    "build:serve": "astro build && serve dist -s"
+    "build:serve": "astro build && astro preview"
   },
   "dependencies": {
     "@astrojs/react": "^2.2.0",
