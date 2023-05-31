@@ -2,7 +2,7 @@ import React from "react";
 
 import styles from './connectContent.module.css';
 import NavigateContainer from "@components/NavigateContainer/NavigateContainer";
-import DateTimeStamp from "@components/Date/DateTimeStamp";
+// import DateTimeStamp from "@components/Date/DateTimeStamp";
 
 
 function ConnectContent({ index, content, item1 = null, category }) {

@@ -5,7 +5,7 @@ import GoToContentPage from "@components/page/goToContentPage";
 import styles from './contentPageLeft.module.css'
 import DecoBackground from "@components/DecoBackground/DecoBackground";
 import IndexDecorationImage from "@components/IndexDecorationImage/IndexDecorationImage";
-// import DateTimeStamp from "components/Date/DateTimeStamp";
+import DateTimeStamp from "@components/Date/DateTimeStamp";
 
 
 
@@ -59,6 +59,7 @@ function ContentPageLeft({
               imageType={'line'} />
           </div>
           <h1 className={`${styles['main-title']} title`}>{content.title}</h1>
+          <DateTimeStamp date={content.createdAt}/>
         </div>
         <div className={styles['main-content']}>
           <div>

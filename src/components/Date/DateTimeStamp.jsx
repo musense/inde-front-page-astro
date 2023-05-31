@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 
 import styles from './dateTimeStamp.module.css'
 
 const dateOption = {
     year: 'numeric',
-    month: 'long',
+    month: 'short',
     day: 'numeric',
 };
 const timeOption = {
@@ -13,18 +13,18 @@ const timeOption = {
     hourCycle: 'h24',
     minute: '2-digit',
 };
-export default function DateTimeStamp({date}) {
+
+export default function DateTimeStamp({ date }) {
+    const d = new Date(date);
+    const f = new Intl.DateTimeFormat('en-in', { ...dateOption, ...timeOption }).formatToParts(d);
+    const getDateParts = useCallback((type) => {
+        const t = f.find(part => part.type === type)
+        return t.value
+    }, [f])
+    const formattedDateString = `${getDateParts('day')}-${getDateParts('month')}-${getDateParts('year')} ${getDateParts('hour')}:${getDateParts('minute')}`
     return date && (<div className={styles['title-main-date']}>
         <span className={styles['create-date']}>
-            {new Date(date).toLocaleDateString(
-                undefined,
-                dateOption
-            )}
-            &nbsp; &nbsp;
-            {new Date(date).toLocaleTimeString(
-                undefined,
-                timeOption
-            )}
+            {formattedDateString}
         </span>
     </div>);
 }

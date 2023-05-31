@@ -4,6 +4,10 @@
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-start;
+    letter-spacing: 1px;
+    font-family: NotoSans-Regular;
+    font-size: 20px;
+    color: grey;
 }
 
 .create-date {
