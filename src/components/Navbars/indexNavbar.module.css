@@ -1,5 +1,5 @@
 .navbar {
-  --navbar-height: 153px;
+  --navbar-height: 120px;
   padding: 0;
   margin: 0;
   min-height: unset;
@@ -15,10 +15,10 @@
   box-shadow: 0 3px 9.5px 0.5px rgba(77,55,55,.5);
 }
 
-.navbar.hide {
+/* .navbar.hide {
   --navbar-height: -153px;
   top: calc(var(--navbar-height) - 5px - 3px);
-}
+} */
 
 .navbar.show {
   top: 0;
@@ -32,7 +32,7 @@
   max-width: 1920px;
   display: flex;
   flex-direction: row;
-  padding: 51px 389px 20px 392px;
+  padding: 30px 389px 20px 392px;
   justify-content: space-between;
   align-items: flex-end;
 }

@@ -22,11 +22,11 @@
   flex-direction: column;
   flex-wrap: nowrap;
   width: 379px;
-  height: 360px;
+  height: 190px; 
   /* background-color: darkgray; */
   background-color: unset;
   box-sizing: border-box;
-  padding: 39px 9px 65px;
+  padding: 15px 9px;
   color: var(--theme-text);
   font-size: 20px;
   font-family: NotoSans-Regular;
@@ -83,13 +83,13 @@
 .connect-btn {
   position: relative;
   background-image: url(/assets/img/category/more_button.png);
-  width: 100%;
-  height: 56px;
+  width: auto;
+  height: 44px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   filter: drop-shadow(0px 4px 4px rgba(0 0 0/0.5));
-  margin-top: auto;
+  margin: unset;
 }
 
 @media screen and (max-width: 400px) {

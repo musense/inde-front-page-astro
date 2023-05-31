@@ -34,7 +34,7 @@ function ConnectContent({ index, content, item1 = null, category }) {
                 >
                     {decodeURIComponent(content.title)}
                 </div>
-                <DateTimeStamp date={content.createdAt} />
+                {/* <DateTimeStamp date={content.createdAt} /> */}
 
                 <div className={styles['connect-btn']} />
                 {/* <div
