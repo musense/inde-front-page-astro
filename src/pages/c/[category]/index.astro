@@ -1,7 +1,10 @@
 ---
 import Layout from '@layouts/Layout.astro';
 import CommonPage from '@components/commonPage/commonPage';
-import { getTitleContentsByCategory } from '@assets/js/titleContents';
+import {
+  getTitleContentsByCategory,
+  getCategoryInfo,
+} from '@assets/js/titleContents';
 
 const env: ImportMetaEnv = import.meta.env;
 console.log(
@@ -16,7 +19,8 @@ const payload = {
   page: 1,
   apiUrl: env.VITE_SERVER_URL,
 };
-const { data } = await getTitleContentsByCategory(payload);
+const { data: categoryItems } = await getTitleContentsByCategory(payload);
+const categoryInfo = await getCategoryInfo(payload);
 export function getStaticPaths() {
   const navItems = ['lottery', 'sports', 'poker', 'matka', 'casino'];
   return navItems.map((item) => [
@@ -28,18 +32,25 @@ export function getStaticPaths() {
   ]);
 }
 
+const title = categoryInfo.headTitle
+  ? categoryInfo.headTitle
+  : categoryInfo.name;
+const description = categoryInfo.headDescription;
+const keywords = categoryInfo.headKeyword;
 console.log('🚀 ~ file: [category].astro:16 ~ category:', category);
+console.log('🚀 ~ file: [category].astro:16 ~ categoryItems:', categoryItems);
 ---
 
 <Layout
-  title={env.VITE_TITLE}
-  description={env.VITE_DESCRIPTION}
+  title={title}
+  description={description}
+  keywords={keywords}
   path={`/c/${category}`}
 >
   <!-- <h1>{category}</h1> -->
   <CommonPage
     client:load
     paramName={category}
-    data={data}
+    data={categoryItems}
   />
 </Layout>

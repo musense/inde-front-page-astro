@@ -9,6 +9,7 @@ console.log('🚀 ~ file: index.astro:8 ~ env.VITE_TITLE:', env.VITE_TITLE);
 <Layout
   title={env.VITE_TITLE}
   description={env.VITE_DESCRIPTION}
+  keywords={env.VITE_KEYWORDS}
   path={'/'}
 >
   <IndexView client:idle />

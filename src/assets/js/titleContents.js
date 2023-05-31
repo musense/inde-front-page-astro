@@ -24,6 +24,15 @@ export async function getTitleContents(payload) {
   return response
 }
 
+export async function getCategoryInfo(payload) {
+  const { categoryName, apiUrl } = payload
+  const response = await instance(apiUrl).get(`/category/${categoryName}`)
+  // const response = await instance(apiUrl).get(`/categories/${categoryName}`)
+    .then(res => res.data)
+  console.log("🚀 ~ file: titleContents.js:31 ~ getCategoryInfo ~ response:", response)
+  return response
+}
+
 export async function getTitleContentsByCategory(payload) {
   const { categoryName, page, apiUrl } = payload
   const response = await instance(apiUrl).get(`/categories/${categoryName}?limit=9999&pageNumber=${page}`)

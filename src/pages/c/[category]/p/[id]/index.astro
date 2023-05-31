@@ -24,10 +24,14 @@ const payload = {
 };
 const mainContent = await getTitleContentsByID(payload);
 const relatedArticles = await getRelatedArticles(payload);
-console.log('🚀 ~ file: index.astro:29 ~ relatedArticles:', relatedArticles);
+// console.log('🚀 ~ file: index.astro:29 ~ relatedArticles:', relatedArticles);
 const titleContents = await getTitleContents(payload);
-console.log('🚀 ~ file: index.astro:31 ~ titleContents:', titleContents);
+// console.log('🚀 ~ file: index.astro:31 ~ titleContents:', titleContents);
 // console.log('🚀 ~ file: [id].astro:16 ~ data:', data);
+
+const title = mainContent.headTitle ? mainContent.headTitle : mainContent.title;
+const description = mainContent.headDescription;
+const keywords = mainContent.headKeyword;
 
 export async function getStaticPaths() {
   const navItems = ['lottery', 'sports', 'poker', 'matka', 'casino'];
@@ -68,8 +72,9 @@ export async function getStaticPaths() {
 ---
 
 <Layout
-  title={env.VITE_TITLE}
-  description={env.VITE_DESCRIPTION}
+  title={title}
+  description={description}
+  keywords={keywords}
   path={'/'}
 >
   <ContentPage
