@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 // reactstrap components
 import { Navbar, Nav, Container } from "reactstrap";
 
@@ -6,23 +6,16 @@ import styles from './indexNavbar.module.css'
 import Logo from "./Logo";
 import NavButton from "./NavButton";
 import Hamburger from "@components/Hamburger/Hamburger";
-// import useShowHeader from "@hook/useShowHeader"
-
-
-// import { MainContext } from "store/context";
-// import { TitleContext } from "views/Index";
-
 
 function IndexNavbar() {
-
-
-  // const state = useContext(MainContext);
-
-  // const [showHeader, headerForceHide] = useShowHeader();
 
   const navRef = useRef(null);
   const hamburgerRef = useRef(null);
   const [active, setActive] = useState(false);
+  useEffect(() => {
+    // console.log("🚀 ~ file: IndexNavbar.jsx:27 ~ useEffect ~ window.location.pathname:", window.location.pathname)
+    localStorage.setItem("pathname", window.location.pathname)
+  }, []);
   const stopPropagationAndToggleHamburger = useCallback((e) => {
     e.stopPropagation()
     toggleHamburger(e)
@@ -90,7 +83,6 @@ function IndexNavbar() {
   const indexButtonList = ['home', 'lottery', 'sports', 'poker', 'matka', 'casino']
   return (
     <>
-      {/* <Navbar id="navbar" className={`fixed-top ${styles.navbar} ${showHeader ? styles.show : styles.hide}`}> */}
       <Navbar id="navbar" className={`fixed-top ${styles.navbar} ${styles.show}`}>
         <Container className={styles.container}>
           <Logo />
@@ -109,7 +101,6 @@ function IndexNavbar() {
           </Nav>
           <Hamburger
             ref={hamburgerRef}
-            // toggleHamburger={toggleHamburger}
             unCheck={unCheck}
           />
         </Container>

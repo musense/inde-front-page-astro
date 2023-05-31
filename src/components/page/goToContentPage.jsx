@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, {  } from 'react'
 import styles from "./goToContentPage.module.css";
 import GoToBtn from "./goToBtn"
 

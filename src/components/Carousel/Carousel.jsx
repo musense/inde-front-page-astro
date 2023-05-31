@@ -1,4 +1,4 @@
-import React, { useMemo, useContext, useEffect, useState, useRef } from "react";
+import React, { useMemo, useEffect, useState, useRef } from "react";
 import styles from './carousel.module.css'
 // reactstrap components
 import {
@@ -11,9 +11,6 @@ import {
 import mobileItemCarousel from "@assets/img/mobile/index/banner.png";
 import desktopCarousel from "@assets/img/index/banner.png";
 console.log("🚀 ~ file: Carousel.jsx:13 ~ desktopCarousel:", desktopCarousel)
-// import { MainContext } from "store/context";
-
-// import { TitleContext } from "views/Index";
 
 const mobileItem = {
   image: mobileItemCarousel,
@@ -29,7 +26,6 @@ const desktopItem = {
 
 
 function CarouselSection() {
-  // const state = useContext(MainContext);
 
   const carouselRef = useRef(null)
   const [carouselItems, setCarouselItems] = useState(null);

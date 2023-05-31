@@ -1,13 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './interestedContents.module.css';
 import ContentPageConnect from './ContentPageConnect';
 
-// import { MainContext } from "store/context";
-// import { TitleContext } from "views/Index";
-
 export default function InterestedContents({ interestedContents }) {
 
-  // const state = useContext(MainContext);
   const state = {
     clientWidth: 1920
   }

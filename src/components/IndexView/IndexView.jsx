@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import Carousel from "@components/Carousel/Carousel";
 
 import IndexViewBlock from "@components/IndexViewBlock/IndexViewBlock";
@@ -11,8 +11,6 @@ import Sports from "@assets/img/index/image_2.png";
 import Poker from "@assets/img/index/image_3.png";
 import Matka from "@assets/img/index/image_4.png";
 console.log("🚀 ~ file: IndexView.jsx:13 ~ Matka:", Matka)
-// import { MainContext, MainDispatchContext } from "@store/context";
-// import { TitleContext } from "views/Index";
 
 const indexViewBlockItems = [
     {
@@ -39,8 +37,6 @@ const indexViewBlockItems = [
 ]
 
 function IndexView() {
-    // const state = useContext(MainContext);
-    // const dispatch = useContext(MainDispatchContext);
 
     const scrollToTop = (clientWidth) => {
         if (!clientWidth) return

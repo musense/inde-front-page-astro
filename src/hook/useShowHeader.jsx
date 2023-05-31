@@ -1,17 +1,8 @@
-import { useEffect, useRef, useState, useContext } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 
 import debounce from '@services/debounce'
-
-// import { MainContext } from "store/context";
-// import { TitleContext } from "views/Index";
-
 export default function useShowHeader() {
-
-    // const state = useContext(MainContext)
-    // const clientWindowWidth = state.clientWidth
-    // console.log("🚀 ~ file: useShowHeader.jsx:12 ~ useShowHeader ~ clientWindowWidth:", clientWindowWidth)
-
     const headerForceHide = () => {
         console.log('!!!!!!!!!!!!headerForceHide scroll start!!!!!!!!!!!!');
         forceHideRef.current = true

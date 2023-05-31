@@ -27,7 +27,9 @@ const { title, description, keywords, path } = Astro.props;
     />
   </head>
   <body>
-    <IndexNavbar client:only />
+    <IndexNavbar
+      client:only
+    />
     <slot />
     <DarkFooter client:only />
     <style is:global>

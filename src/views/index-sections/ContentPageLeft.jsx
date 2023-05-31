@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from "react";
+import React, { useCallback } from "react";
 import Tag from "@components/Tag/Tag";
 // import { Link } from "react-router-dom";
 import GoToContentPage from "@components/page/goToContentPage";
@@ -8,17 +8,10 @@ import IndexDecorationImage from "@components/IndexDecorationImage/IndexDecorati
 import DateTimeStamp from "@components/Date/DateTimeStamp";
 
 
-
-// import { MainContext } from "store/context";
-// import { TitleContext } from "views/Index";
-
 function ContentPageLeft({
   content,
   prevInfo,
-  nextInfo,
-  category }) {
-
-  // const state = useContext(MainContext)
+  nextInfo }) {
 
   const state = {
     clientWidth: 1920

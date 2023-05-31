@@ -9,14 +9,7 @@ import {
 } from '@assets/js/titleContents';
 
 const env: ImportMetaEnv = import.meta.env;
-// console.log('🚀 ~ file: index.astro:8 ~ env:', env);
-// console.log('🚀 ~ file: index.astro:8 ~ env.VITE_TITLE:', env.VITE_TITLE);
-
-// export const prerender = true;
-
 const { category, id } = Astro.params;
-// console.log('🚀 ~ file: [id].astro:10 ~ category:', category);
-// console.log('🚀 ~ file: [id].astro:10 ~ id:', id);
 
 const payload = {
   _id: id,
@@ -24,10 +17,7 @@ const payload = {
 };
 const mainContent = await getTitleContentsByID(payload);
 const relatedArticles = await getRelatedArticles(payload);
-// console.log('🚀 ~ file: index.astro:29 ~ relatedArticles:', relatedArticles);
 const titleContents = await getTitleContents(payload);
-// console.log('🚀 ~ file: index.astro:31 ~ titleContents:', titleContents);
-// console.log('🚀 ~ file: [id].astro:16 ~ data:', data);
 
 const title = mainContent.headTitle ? mainContent.headTitle : mainContent.title;
 const description = mainContent.headDescription;
@@ -43,12 +33,6 @@ export async function getStaticPaths() {
         apiUrl: import.meta.env.VITE_SERVER_URL,
       };
       const idArray = await getTitleContentsByCategoryAndGetOnlyID(listPayload);
-      // idArray.map((id) => {
-      //   console.log(
-      //     `🚀 ~ file: index.astro:46 ~ returnidArray.map ~ ${category} id: `,
-      //     id
-      //   );
-      // });
       return idArray.map((id) => [
         {
           params: {
@@ -66,7 +50,6 @@ export async function getStaticPaths() {
     });
   });
   const staticPaths = await getStaticPaths;
-  // console.log("🚀 ~ file: index.astro:60 ~ getStaticPaths ~ staticPaths:", staticPaths)
   return staticPaths;
 }
 ---

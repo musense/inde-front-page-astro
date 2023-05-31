@@ -1,21 +1,10 @@
-import React, { useEffect, useState, useReducer, useContext, useRef, useCallback } from 'react';
-
-
-// import { useParams } from 'react-router-dom';
-// core components
+import React, { useEffect, useState, useCallback } from 'react';
 import styles from './contentPage.module.css';
 import IndexDecorationImage from "@components/IndexDecorationImage/IndexDecorationImage";
-
 import ContentPageLeft from './ContentPageLeft';
-import { getTitleContentsByID, getRelatedArticles, getTitleContents } from "@assets/js/titleContents";
-
-
 import InterestedContents from '@views/index-sections/InterestedContents';
 
 import { animateScroll as scroll } from "react-scroll";
-
-// import { MainContext, MainDispatchContext } from "store/context";
-// import { TitleContext } from "views/Index";
 
 
 const mobileItem = {
@@ -31,19 +20,15 @@ const pcItem = {
 
 
 function ContentPage({ category, mainContent, relatedArticles,titleContents }) {
-  // console.log("🚀 ~ file: ContentPage.jsx:34 ~ ContentPage ~ data:", data)
 
   const state = {
     clientWidth: 1920
   }
   const [item, setItem] = useState();
-  // const state = useContext(MainContext);
-  // const dispatch = useContext(MainDispatchContext);
   console.log("🚀 ~ file ContentPage.jsx:26 ~ ContentPage ~ state:", state)
 
-  const scrollToPosition = useCallback(() => {
+  const scrollToPosition = useCallback((top=520) => {
     if (!state.clientWidth) return
-    let top = 660
     if (state.clientWidth < 400)
       top = 342
     scroll.scrollTo(top, {
@@ -56,9 +41,6 @@ function ContentPage({ category, mainContent, relatedArticles,titleContents }) {
   const [prevInfo, setPrevInfo] = useState(null);
   const [nextInfo, setNextInfo] = useState(null);
   const [interestedContents, setInterestedContents] = useState(null);
-
-
-  // const { categoryName: category, id } = useParams();
 
   const findOneByIdAndReturnPrevNextID = (arr = [], serialNumber = null) => {
 
@@ -88,7 +70,7 @@ function ContentPage({ category, mainContent, relatedArticles,titleContents }) {
     findOneByIdAndReturnPrevNextID(titleContents, mainContent.serialNumber)
   }, []);
   useEffect(() => {
-    scrollToPosition(0)
+    scrollToPosition()
     // if (!state.clientWidth) {
     //   dispatch({
     //     type: 'SET_WINDOW_SIZE',

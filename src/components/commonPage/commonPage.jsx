@@ -1,11 +1,8 @@
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import styles from './commonPage.module.css';
 import IndexDecorationImage from "@components/IndexDecorationImage/IndexDecorationImage";
 import ConnectContent from '@components/ConnectContent/ConnectContent';
-
-import { getTitleContentsByCategory } from "@assets/js/titleContents";
-import { getTagsContents } from "@assets/js/tagContents";
 
 import PageTemplate from "@components/page/pageTemplate";
 import DecoBackground from "@components/DecoBackground/DecoBackground";
@@ -13,17 +10,11 @@ import Banner from '@components/Banner/Banner';
 
 import { animateScroll as scroll } from "react-scroll";
 
-
-// import { MainContext, MainDispatchContext } from "store/context";
-// import { TitleContext } from 'views/Index';
-
 function CommonPage({ paramName, data }) {
     console.log("🚀 ~ file: commonPage.jsx:21 ~ CommonPage ~ data:", data)
     const state = {
         clientWidth: 1920
     }
-    // const state = useContext(MainContext)
-    // const dispatch = useContext(MainDispatchContext)
 
     const Background = useCallback(({ showOn }) => {
         // console.log("🚀 ~ file: commonPage.jsx:60 ~ Background ~ showOn:", showOn)
@@ -68,9 +59,8 @@ function CommonPage({ paramName, data }) {
         });
     }, [])
 
-    const scrollToPosition = useCallback(() => {
+    const scrollToPosition = useCallback((top=250) => {
         if (!state.clientWidth) return
-        let top = 402
         if (state.clientWidth < 400)
             top = 240
         scroll.scrollTo(top, {
@@ -94,7 +84,13 @@ function CommonPage({ paramName, data }) {
     }, [data]);
 
     useEffect(() => {
-        scrollToTop()
+        if (!paramName) return
+
+        if (paramName.indexOf("#") === -1) {
+            scrollToTop()
+        } else {
+            scrollToPosition()
+        }
         // if (!state.clientWidth) {
         //     dispatch({
         //         type: 'SET_WINDOW_SIZE',
@@ -107,7 +103,7 @@ function CommonPage({ paramName, data }) {
         //     })
         // }
         // }, [dispatch, scrollToTop, state.clientWidth]);
-    }, [scrollToTop, state.clientWidth]);
+    }, [paramName, scrollToPosition, scrollToTop, state.clientWidth]);
 
     useMemo(() => {
         // console.log("🚀 ~ file: commonPage.jsx:155 ~ useMemo ~ __ALL_CONTENT__:", __ALL_CONTENT__)

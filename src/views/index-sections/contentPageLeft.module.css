@@ -114,17 +114,11 @@
     font-size: 20px;
 }
 
-.title-main-content h1,
-.title-main-content h2,
-.title-main-content h3 {
-    font-family: NotoSans-Medium;
-}
 
 .title-main-content b,
 .title-main-content strong {
-    font-family: NotoSans-Medium;
-    text-shadow: 0 0 black;
-    -webkit-text-stroke-width: thin;
+    /* font-family: NotoSans-Medium; */
+    -webkit-text-stroke-width: 1px;
 }
 
 .title-main-content img {
