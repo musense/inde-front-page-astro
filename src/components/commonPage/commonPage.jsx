@@ -174,13 +174,19 @@ function CommonPage({ paramName, data }) {
                     imageType={'line'} />
             </div>
             <Background showOn={'mobile'} />
-            {viewContents && (<div className={`${styles['main-content']}`}>
+            {viewContents && viewContents.length !== 0 ? (<div className={`${styles['main-content']}`}>
                 <Background showOn={'desktop'} />
                 {viewContents.map((content, index) =>
-                    <ConnectContent key={index} index={index} content={content}/>
+                    <ConnectContent key={index} index={index} content={content} />
                 )}
                 <Page />
             </div>
+            ) : (
+                <h3 style={{
+                    color: 'grey',
+                    width: '100%',
+                    textAlign: 'center',
+                }}>There's no articles</h3>
             )}
             <div className={styles['category-decoration-image-wrapper']}>
                 <IndexDecorationImage
