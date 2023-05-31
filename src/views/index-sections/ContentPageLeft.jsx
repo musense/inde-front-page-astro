@@ -77,6 +77,12 @@ function ContentPageLeft({
               className={styles['title-main-content']}
               dangerouslySetInnerHTML={{ __html: content.htmlContent }}
             />
+
+            <a className={styles['play-now']}
+              href="https://www.zoobetin.com/?al=00034"
+              target="_blank"
+              rel="noopener noreferrer"
+            />
             {(prevInfo || nextInfo) && <GoToContentPage
               prevInfo={prevInfo}
               nextInfo={nextInfo}

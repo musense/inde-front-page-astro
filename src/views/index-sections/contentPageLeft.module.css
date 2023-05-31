@@ -101,7 +101,8 @@
     letter-spacing: 2.1px;
     text-align: left;
     color: var(--theme-dark);
-    margin-bottom: 205px;
+    /* margin-bottom: 205px; */
+    margin-bottom: 100px;
 }
 
 .title-main-content::after {
@@ -130,6 +131,18 @@
     max-width: 100%;
 }
 
+.play-now {
+    --play-now-size: 150px;
+    background-image: url(/assets/img/content/playNow.gif);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: auto;
+    height: var(--play-now-size);
+    display: block;
+    position: relative;
+    margin: 0 auto;
+}
 
 /* .title-main-image {
     position: relative;
