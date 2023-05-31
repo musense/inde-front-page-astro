@@ -92,7 +92,7 @@ function IndexView() {
                     key={index}
                     reverse={index % 2 === 1 ? true : false}
                     title={item.title}
-                    src={item.image.src}
+                    image={item.image}
                     altText={item.altText}
                     article={item.article}
                 />
