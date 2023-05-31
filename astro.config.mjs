@@ -1,10 +1,24 @@
 import { defineConfig } from 'astro/config';
-import mdx from '@astrojs/mdx';
-
-import sitemap from '@astrojs/sitemap';
+import * as dotenv from 'dotenv'
+import react from "@astrojs/react";
+import viteCompression from 'vite-plugin-compression';
+dotenv.config()
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://example.com',
-	integrations: [mdx(), sitemap()],
+	integrations: [react()],
+	root: "./src",
+	publicDir: "./public",
+	experimental: {
+		assets: true
+	},
+	plugins: [
+		viteCompression({
+			threshold: 512000 // 對大於 512kb 的文件進行壓縮
+		})
+	],
+	server: {
+		port: 4200,
+		host: true
+	}
 });

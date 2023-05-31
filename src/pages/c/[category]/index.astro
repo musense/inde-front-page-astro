@@ -1,0 +1,45 @@
+---
+import Layout from '@layouts/Layout.astro';
+import CommonPage from '@components/commonPage/commonPage';
+import { getTitleContentsByCategory } from '@assets/js/titleContents';
+
+const env: ImportMetaEnv = import.meta.env;
+console.log(
+  '🚀 ~ file: index.astro:8 ~ env.VITE_SERVER_URL:',
+  env.VITE_SERVER_URL
+);
+
+const { category } = Astro.params;
+
+const payload = {
+  categoryName: category,
+  page: 1,
+  apiUrl: env.VITE_SERVER_URL,
+};
+const { data } = await getTitleContentsByCategory(payload);
+export function getStaticPaths() {
+  const navItems = ['lottery', 'sports', 'poker', 'matka', 'casino'];
+  return navItems.map((item) => [
+    {
+      params: {
+        category: item,
+      },
+    },
+  ]);
+}
+
+console.log('🚀 ~ file: [category].astro:16 ~ category:', category);
+---
+
+<Layout
+  title={env.VITE_TITLE}
+  description={env.VITE_DESCRIPTION}
+  path={`/c/${category}`}
+>
+  <!-- <h1>{category}</h1> -->
+  <CommonPage
+    client:load
+    paramName={category}
+    data={data}
+  />
+</Layout>

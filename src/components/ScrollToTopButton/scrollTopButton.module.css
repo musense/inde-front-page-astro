@@ -1,0 +1,31 @@
+.fixedToTopBtn {
+  position: fixed;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  /* right: -999999vw; */
+  bottom: 5vw;
+  /* background-color: var(--theme-color); */
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: var(--theme - white);
+  display: flex;
+  z-index: 999999;
+  /* background-image: url(/assets/img/toTop.png); */
+  background-size: contain;
+  background-position: center;
+  outline: unset;;
+  cursor: pointer;
+}
+/* .fixedToTopBtn.active, */
+.fixedToTopBtn:hover{
+  /* background-image: url(/assets/img/toTop_h.png); */
+}
+.hide {
+  right: -999999vw;
+}
+
+.show {
+  right: 5vw;
+}
