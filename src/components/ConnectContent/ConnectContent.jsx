@@ -15,7 +15,7 @@ function ConnectContent({ index, content, item1 = null, category }) {
             contentID={content._id}
             styles={styles}
             customClassName={"connect-container"}
-            category={category}
+            category={content.categories.name}
         >
             <div className={styles['title-mainImage']}>
 

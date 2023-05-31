@@ -177,7 +177,7 @@ function CommonPage({ paramName, data }) {
             {viewContents && (<div className={`${styles['main-content']}`}>
                 <Background showOn={'desktop'} />
                 {viewContents.map((content, index) =>
-                    <ConnectContent key={index} index={index} content={content} category={paramName} />
+                    <ConnectContent key={index} index={index} content={content}/>
                 )}
                 <Page />
             </div>
