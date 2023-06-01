@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import styles from './decoBackground.module.css'
 import { cx, css } from '@emotion/css'
 
-
 export default function DecoBackground({ repeat, position, offset = '-240px' }) {
 
   let decoBackgroundFixed

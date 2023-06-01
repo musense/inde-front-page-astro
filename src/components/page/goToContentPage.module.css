@@ -1,14 +1,9 @@
 .content-btn {
   position: relative;
-  margin: 0 auto;
+  margin: 20px auto;
   background-color: unset;
   width: 100%;
   height: fit-content;
-  /* display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: flex-start; */
   font-family: NotoSans-Regular;
   display: block;
 }

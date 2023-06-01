@@ -59,16 +59,13 @@
     right: 0;
   }
 
-  .navbar>div>ul {
-    height: 120vw;
-    width: 60vw;
-  }
-
   .container {
     padding: unset;
   }
 
   .nav-btn-wrapper {
+    height: 120vw;
+    width: 60vw;
     position: fixed;
     right: 0;
     top: var(--navbar-height);

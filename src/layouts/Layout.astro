@@ -149,7 +149,9 @@ const { title, description, keywords, path } = Astro.props;
       button:focus-visible {
         outline: 4px auto -webkit-focus-ring-color;
       }
-
+      #nav-backdrop {
+        display: none;
+      }
       @media screen and (max-width: 768px) {
         :root {
           --navbar-height: 5.5rem;
@@ -170,6 +172,14 @@ const { title, description, keywords, path } = Astro.props;
           font-size: 2rem;
           letter-spacing: 0.1rem;
           height: fit-content;
+        }
+        #nav-backdrop {
+          position: fixed;
+          inset: 0;
+          display: none;
+        }
+        #nav-backdrop.active {
+          display: block;
         }
       }
     </style>

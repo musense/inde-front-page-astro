@@ -47,12 +47,13 @@
   background-image: url(/assets/img/footer/flower.png);
   height: 944px;
   width: 944px;
-  display: block;
+  display: none;
   z-index: -1;
 }
 
-.custom-footer.category::before {
-  display: none;
+.custom-footer.index::before,
+.custom-footer.not-index::before {
+  display: block;
 }
 
 .footer-header {
@@ -85,9 +86,10 @@
   z-index: 1;
 }
 
-.footer-decoration-image-wrapper{
+.footer-decoration-image-wrapper {
   width: 100%;
 }
+
 .footer-decoration-image-wrapper>div:first-child {
   display: block;
 }

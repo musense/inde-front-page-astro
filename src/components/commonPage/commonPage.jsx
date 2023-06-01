@@ -64,7 +64,7 @@ function CommonPage({ paramName, data }) {
         console.log("🚀 ~ file: commonPage.jsx:71 ~ scrollToPosition ~ top:", top)
         if (!clientWidth) return
         if (clientWidth <= 768)
-            top = top || 140
+            top = 80
         scroll.scrollTo(top, {
             duration: 500,
             delay: 0,
@@ -91,18 +91,16 @@ function CommonPage({ paramName, data }) {
         if (paramName.indexOf("#") === -1) {
             scrollToTop()
         } else {
-            scrollToPosition(80)
+            scrollToPosition()
         }
     }, [paramName, scrollToPosition, scrollToTop, clientWidth]);
 
     const viewContents = useMemo(() => {
-        // console.log("🚀 ~ file: commonPage.jsx:155 ~ useMemo ~ __ALL_CONTENT__:", __ALL_CONTENT__)
         if (__ALL_CONTENT__) {
             const start = 0 + (currentPage - 1) * 6,
                 end = currentPage * 6;
             const viewContents = __ALL_CONTENT__.slice(start, end)
             return viewContents
-            // setViewContents(__ALL_CONTENT__.slice(start, end))
         }
         return []
     }, [__ALL_CONTENT__, currentPage])

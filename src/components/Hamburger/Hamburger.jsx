@@ -2,16 +2,17 @@ import React from 'react'
 import styles from './hamburger.module.css'
 
 const Hamburger = React.forwardRef(function Hamburger({
+    zIndex,
     unCheck
 },
     ref) {
-
-    // function handClick(e) {        
-    //     toggleHamburger(e)
-    // }
-
+        
     return (
-        <div className={styles['hamburger']}>
+        <div
+            style={{
+                zIndex: zIndex,
+            }}
+            className={styles['hamburger']}>
             <input ref={ref}
                 type="checkbox"
                 name="hamburger-check" />
