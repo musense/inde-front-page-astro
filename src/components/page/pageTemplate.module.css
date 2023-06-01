@@ -30,6 +30,11 @@
     text-align: center;
 }
 
+.page-wrapper a:hover,
+.page-wrapper a.active {
+    color: var(--theme-red);
+}
+
 .page-wrapper p {
     font-family: 'Times New Roman', Times, serif;
     color: var(--theme-red);
@@ -71,7 +76,7 @@ button.displayNone {
     pointer-events: none;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 768px) {
 
     .page-wrapper>div {
         width: 60vw;

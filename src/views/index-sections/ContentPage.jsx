@@ -8,35 +8,33 @@ import { animateScroll as scroll } from "react-scroll";
 
 
 const mobileItem = {
-  src: '/img/mobile/index/banner.png',
+  image: import('@assets/img/mobile/index/banner.png'),
   altText: 'The most popular games in India',
   title: 'The most popular games in India',
 };
 const pcItem = {
-  src: '/img/index/banner.png',
+  image: import('@assets/img/index/banner.png'),
   altText: 'The most popular games in India',
   title: 'The most popular games in India',
 };
 
 
-function ContentPage({ category, mainContent, relatedArticles,titleContents }) {
+function ContentPage({ category, mainContent, relatedArticles, titleContents }) {
 
-  const state = {
-    clientWidth: 1920
-  }
+  const clientWidth = localStorage.getItem('clientWidth');
+
   const [item, setItem] = useState();
-  console.log("🚀 ~ file ContentPage.jsx:26 ~ ContentPage ~ state:", state)
 
-  const scrollToPosition = useCallback((top=520) => {
-    if (!state.clientWidth) return
-    if (state.clientWidth < 400)
-      top = 342
+  const scrollToPosition = useCallback((top = 520) => {
+    if (!clientWidth) return
+    if (clientWidth <= 768)
+      top = 250
     scroll.scrollTo(top, {
       duration: 500,
       delay: 0,
       smooth: "easeInOutQuart",
     });
-  }, [state.clientWidth])
+  }, [clientWidth])
   const [_theContent_, setTheContent] = useState(null);
   const [prevInfo, setPrevInfo] = useState(null);
   const [nextInfo, setNextInfo] = useState(null);
@@ -53,6 +51,7 @@ function ContentPage({ category, mainContent, relatedArticles,titleContents }) {
       title: content.title,
     })
     //* basically, the bigger the serialNumber is, the newer the editor is
+    console.log("🚀 ~ file: ContentPage.jsx:46 ~ findOneByIdAndReturnPrevNextID ~ serialNumber:", serialNumber)
     const prevContent = arr.find(a => a.serialNumber === serialNumber - 1)
     const nextContent = arr.find(a => a.serialNumber === serialNumber + 1)
 
@@ -71,28 +70,23 @@ function ContentPage({ category, mainContent, relatedArticles,titleContents }) {
   }, []);
   useEffect(() => {
     scrollToPosition()
-    // if (!state.clientWidth) {
-    //   dispatch({
-    //     type: 'SET_WINDOW_SIZE',
-    //     payload: {
-    //       width: window.innerWidth || document.documentElement.clientWidth ||
-    //         document.body.clientWidth,
-    //       height: window.innerHeight || document.documentElement.clientHeight ||
-    //         document.body.clientHeigh
-    //     }
-    //   })
-    // } else {
-    // console.log("🚀 ~ file: ContentPage.jsx:71 ~ useEffect ~ state.clientWidth:", state.clientWidth)
-
-    if (state.clientWidth < 400) {
-
-      setItem({ ...mobileItem })
+    let bannerImport
+    if (clientWidth <= 768) {
+      bannerImport = mobileItem.image
+      bannerImport.then(res => setItem({
+        src: res.default.src,
+        altText: mobileItem.altText,
+        title: mobileItem.title,
+      }))
     } else {
-      setItem({ ...pcItem })
+      bannerImport = pcItem.image
+      bannerImport.then(res => setItem({
+        src: res.default.src,
+        altText: pcItem.altText,
+        title: pcItem.title,
+      }))
     }
-    // }
-
-  }, [scrollToPosition, state.clientWidth]);
+  }, [scrollToPosition, clientWidth]);
 
 
 

@@ -16,13 +16,10 @@
 }
 
 
-@media (max-width: 400px) {
+@media (max-width: 768px) {
     .title-main-date {
-        font-size: 0.7rem;
-        color: var(--theme-red);
-        width: 100%;
-        text-align: right;
-        justify-content: flex-end;
+        font-size: 1rem;
+        justify-content: flex-start;
     }
 
 }

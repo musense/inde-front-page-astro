@@ -48,10 +48,10 @@
 
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 768px) {
 
   .navbar {
-    --navbar-height: 6rem;
+    --navbar-height: 5.5rem;
     padding: unset;
     position: fixed !important;
     top: 0;

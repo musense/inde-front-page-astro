@@ -1,6 +1,7 @@
 .contentPage-decoration-image-wrapper-mobile {
   display: none;
 }
+
 .contentPage-decoration-image-wrapper-pc {
   display: block;
 }
@@ -164,16 +165,18 @@
   font-size: var(--theme-font-3s);
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 768px) {
 
   .contentPage-decoration-image-wrapper-mobile {
     display: block;
   }
+
   .contentPage-decoration-image-wrapper-pc {
     display: none;
   }
 
   .section {
+    --navbar-height: 5.5rem;
     position: relative;
     padding: 0;
     display: flex;

@@ -13,7 +13,7 @@
     color: var(--theme-gold);
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 768px) {
     .navButton {
         font-size: 1.5rem;
         position: relative;

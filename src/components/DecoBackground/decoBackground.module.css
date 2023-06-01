@@ -61,7 +61,7 @@
     right: var(--category-background-offset);
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 768px) {
 
     .deco-background.fixed {
         /* --category-background-offset: 1rem; */

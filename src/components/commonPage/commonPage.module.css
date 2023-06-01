@@ -273,10 +273,9 @@
     }
   
     .category-name {
-      font-size: 4rem;
-      letter-spacing: 0.2rem;
       color: var(--theme-gold);
       margin-top: 2rem;
+      height: unset;
     }
   
     .category-decoration-image-wrapper>div:first-child {
@@ -305,7 +304,7 @@
       width: 100vw;
       height: fit-content;
       margin-bottom: 3rem;
-      row-gap: 10rem;
+      row-gap: 7rem;
     }
   
   

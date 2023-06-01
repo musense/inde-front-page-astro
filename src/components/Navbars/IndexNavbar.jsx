@@ -12,10 +12,23 @@ function IndexNavbar() {
   const navRef = useRef(null);
   const hamburgerRef = useRef(null);
   const [active, setActive] = useState(false);
-  useEffect(() => {
-    // console.log("🚀 ~ file: IndexNavbar.jsx:27 ~ useEffect ~ window.location.pathname:", window.location.pathname)
-    localStorage.setItem("pathname", window.location.pathname)
+
+
+  useEffect(() => {    
+    const clientWidth = window.innerWidth || document.documentElement.clientWidth ||
+      document.body.clientWidth
+    const pathname = window.location.pathname
+    console.log("🚀 ~ file: IndexNavbar.jsx:18 ~ useEffect ~ clientWidth:", clientWidth)
+    console.log("🚀 ~ file: IndexNavbar.jsx:18 ~ useEffect ~ pathname:", pathname)
+    if (!(localStorage.getItem("clientWidth") && localStorage.getItem("clientWidth") == clientWidth)) {
+      localStorage.setItem("clientWidth", clientWidth)
+    }
+    if (!(localStorage.getItem("pathname") && localStorage.getItem("pathname") == pathname)) {
+      localStorage.setItem("pathname", window.location.pathname)
+    }
   }, []);
+
+
   const stopPropagationAndToggleHamburger = useCallback((e) => {
     e.stopPropagation()
     toggleHamburger(e)

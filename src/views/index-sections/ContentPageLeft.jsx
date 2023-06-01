@@ -13,12 +13,10 @@ function ContentPageLeft({
   prevInfo,
   nextInfo }) {
 
-  const state = {
-    clientWidth: 1920
-  }
+  const clientWidth = localStorage.getItem("clientWidth");
 
   const Background = useCallback(() => {
-    if (state.clientWidth < 400) {
+    if (clientWidth <= 768) {
       return <DecoBackground
         repeat={'repeat'}
         position={'fixed'}
@@ -32,9 +30,9 @@ function ContentPageLeft({
 
       />)
     }
-  }, [state.clientWidth])
+  }, [clientWidth])
 
-  console.log("🚀 ~ file: ContentPageLeft.jsx:36 ~ useEffect ~ state.clientWidth:", state.clientWidth)
+  console.log("🚀 ~ file: ContentPageLeft.jsx:36 ~ useEffect ~ clientWidth:", clientWidth)
 
   return content && (
     <div className={styles['content-page']}>
@@ -52,7 +50,7 @@ function ContentPageLeft({
               imageType={'line'} />
           </div>
           <h1 className={`${styles['main-title']} title`}>{content.title}</h1>
-          <DateTimeStamp date={content.createdAt}/>
+          <DateTimeStamp date={content.createdAt} />
         </div>
         <div className={styles['main-content']}>
           <div>

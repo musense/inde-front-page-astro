@@ -27,7 +27,7 @@ const Banner = React.forwardRef(function Banner(
     // console.log(`🚀 ~ file tagPage.jsx:122 ~ banner ~ imageMap.get('${category}'):`, imageMap.get(category))
     return image && (<div ref={ref} className={`section ${styles.section}`}>
         <a href={'https://zoobet168.com/'} target="_blank" rel="noopener noreferrer" >
-            <img src={image} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+            <img src={image} style={{ width: '100%', objectFit: 'cover', objectPosition: 'center' }} />
         </a>
     </div>)
 }

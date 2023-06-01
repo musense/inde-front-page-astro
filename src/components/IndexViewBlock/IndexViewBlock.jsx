@@ -7,7 +7,7 @@ export default function IndexViewBlock({ title, article, image, altText, reverse
     return <div style={reverse ? { flexDirection: 'row-reverse' } : { flexDirection: 'row' }}
         className={`${styles['index-paragraph-wrapper']} ${reverse ? styles['reverse'] : ''}`}>
         <div className={styles['index-type-image']}>
-            <img src={image.src} alt={altText} width={image.width} height={image.height} />
+            <img src={image.src} alt={altText}/>
         </div>
         <div className={styles['index-type-container']}>
             <div className={`${styles['index-type-title']} title`}>

@@ -11,17 +11,18 @@ import Banner from '@components/Banner/Banner';
 import { animateScroll as scroll } from "react-scroll";
 
 function CommonPage({ paramName, data }) {
-    console.log("🚀 ~ file: commonPage.jsx:21 ~ CommonPage ~ data:", data)
-    const state = {
-        clientWidth: 1920
-    }
 
+    // const currentPage = parseInt(localStorage.getItem('currentPage'));
+    // const currentPageRef = useRef(parseInt(localStorage.getItem('currentPage')) || 1)
+    const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem('currentPage')) || 1);
+    console.log("🚀 ~ file: commonPage.jsx:16 ~ CommonPage ~ currentPage:", currentPage)
+    console.log("🚀 ~ file: commonPage.jsx:21 ~ CommonPage ~ data:", data)
+    const clientWidth = localStorage.getItem("clientWidth");
     const Background = useCallback(({ showOn }) => {
-        // console.log("🚀 ~ file: commonPage.jsx:60 ~ Background ~ showOn:", showOn)
-        // console.log("🚀 ~ file: commonPage.jsx:59 ~ Background ~ state.clientWidth:", state.clientWidth)
-        if (!state.clientWidth) return
+
+        if (!clientWidth) return
         // mobile using
-        if (state.clientWidth < 400) {
+        if (clientWidth <= 768) {
             switch (showOn) {
                 case "mobile": {
                     return (<DecoBackground
@@ -49,7 +50,7 @@ function CommonPage({ paramName, data }) {
             }
         }
 
-    }, [state.clientWidth])
+    }, [clientWidth])
 
     const scrollToTop = useCallback(() => {
         scroll.scrollTo(0, {
@@ -59,27 +60,28 @@ function CommonPage({ paramName, data }) {
         });
     }, [])
 
-    const scrollToPosition = useCallback((top=250) => {
-        if (!state.clientWidth) return
-        if (state.clientWidth < 400)
-            top = 240
+    const scrollToPosition = useCallback((top = 250) => {
+        console.log("🚀 ~ file: commonPage.jsx:71 ~ scrollToPosition ~ top:", top)
+        if (!clientWidth) return
+        if (clientWidth <= 768)
+            top = top || 140
         scroll.scrollTo(top, {
             duration: 500,
             delay: 0,
             smooth: "easeInOutQuart",
         });
-    }, [state.clientWidth])
+    }, [clientWidth])
 
     const bannerRef = useRef()
+
+    console.log("🚀 ~ file: commonPage.jsx:74 ~ CommonPage ~ currentPage:", currentPage)
     const [__ALL_CONTENT__, setAllContent] = useState(null);
-    const [viewContents, setViewContents] = useState(null);
-    const [currPage, setCurrPage] = useState(1);
+    // const [viewContents, setViewContents] = useState(null);
     const [totalPages, setTotalPages] = useState(1);
 
     useMemo(() => {
-        // console.log("🚀 ~ file: commonPage.jsx:94 ~ CommonPage ~ data:", data)
+        console.log("🚀 ~ file: commonPage.jsx:94 ~ CommonPage ~ data:", data)
         setAllContent(data);
-        setCurrPage(1);
         setTotalPages(Math.ceil(data.length / 6));
     }, [data]);
 
@@ -89,67 +91,41 @@ function CommonPage({ paramName, data }) {
         if (paramName.indexOf("#") === -1) {
             scrollToTop()
         } else {
-            scrollToPosition()
+            scrollToPosition(80)
         }
-        // if (!state.clientWidth) {
-        //     dispatch({
-        //         type: 'SET_WINDOW_SIZE',
-        //         payload: {
-        //             width: window.innerWidth || document.documentElement.clientWidth ||
-        //                 document.body.clientWidth,
-        //             height: window.innerHeight || document.documentElement.clientHeight ||
-        //                 document.body.clientHeigh
-        //         }
-        //     })
-        // }
-        // }, [dispatch, scrollToTop, state.clientWidth]);
-    }, [paramName, scrollToPosition, scrollToTop, state.clientWidth]);
+    }, [paramName, scrollToPosition, scrollToTop, clientWidth]);
 
-    useMemo(() => {
+    const viewContents = useMemo(() => {
         // console.log("🚀 ~ file: commonPage.jsx:155 ~ useMemo ~ __ALL_CONTENT__:", __ALL_CONTENT__)
         if (__ALL_CONTENT__) {
-            const start = 0 + (currPage - 1) * 6,
-                end = currPage * 6;
-            setViewContents(__ALL_CONTENT__.slice(start, end))
+            const start = 0 + (currentPage - 1) * 6,
+                end = currentPage * 6;
+            const viewContents = __ALL_CONTENT__.slice(start, end)
+            return viewContents
+            // setViewContents(__ALL_CONTENT__.slice(start, end))
         }
-    }, [__ALL_CONTENT__, currPage])
-
-    const goPreviousPage = useCallback(() => {
-        setCurrPage(page => parseInt(page) - 1)
-        scrollToPosition()
-    }, [scrollToPosition])
-
-    const goNextPage = useCallback(() => {
-        setCurrPage(page => parseInt(page) + 1)
-        scrollToPosition()
-    }, [scrollToPosition])
-
-    const setPage = useCallback((page) => {
-        setCurrPage(parseInt(page))
-        scrollToPosition()
-    }, [scrollToPosition])
+        return []
+    }, [__ALL_CONTENT__, currentPage])
 
     const Page = useCallback(() => {
-        if (state.clientWidth < 400) {
+        if (clientWidth <= 768) {
             return <PageTemplate
-                prevPage={goPreviousPage}
-                nextPage={goNextPage}
-                setPage={setPage}
-                currentPage={currPage}
+                callback={scrollToPosition}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
                 totalPages={totalPages}
                 maxShowNumbers={3}
             />
         } else {
             return <PageTemplate
-                prevPage={goPreviousPage}
-                nextPage={goNextPage}
-                setPage={setPage}
-                currentPage={currPage}
+                callback={scrollToPosition}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
                 totalPages={totalPages}
                 maxShowNumbers={5}
             />
         }
-    }, [currPage, goNextPage, goPreviousPage, setPage, state.clientWidth, totalPages])
+    }, [clientWidth, totalPages, currentPage, setCurrentPage])
     return (
         <>
 

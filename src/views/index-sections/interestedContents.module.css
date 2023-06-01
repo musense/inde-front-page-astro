@@ -89,7 +89,7 @@
 }
 
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 768px) {
 
   .connect-flex-site {
     width: 100vw;

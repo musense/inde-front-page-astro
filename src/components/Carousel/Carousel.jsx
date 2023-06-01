@@ -30,23 +30,18 @@ function CarouselSection() {
   const carouselRef = useRef(null)
   const [carouselItems, setCarouselItems] = useState(null);
   useEffect(() => {
-    // console.log("🚀 ~ file: Carousel.jsx:70 ~ useEffect ~ state.clientWidth:", state.clientWidth)
-    // if (!state.clientWidth) return
-
-    // if (carouselRef.current === null) {
-    //   carouselRef.current = 'carousel'
-    //   if (state.clientWidth < 400) {
-    //     setCarouselItems([mobileItem])
-    //   } else {
-    //   }
-    // }
-
+    const clientWidth = localStorage.getItem("clientWidth");
+    if (clientWidth > 768) {
       setCarouselItems([{
         src: desktopItem.image.src,
         altText: desktopItem.altText,
       }])
-   
-    // }, [state.clientWidth]);
+    } else {
+      setCarouselItems([{
+        src: mobileItem.image.src,
+        altText: mobileItem.altText,
+      }])
+    }
   }, []);
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [animating, setAnimating] = React.useState(false);

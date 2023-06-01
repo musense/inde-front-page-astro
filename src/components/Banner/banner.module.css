@@ -10,8 +10,9 @@
   z-index: 1;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 768px) {
   .section {
+    --navbar-height: 5.5rem;
     height: 4.5rem;
   }
 }

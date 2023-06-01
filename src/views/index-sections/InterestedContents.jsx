@@ -4,24 +4,20 @@ import ContentPageConnect from './ContentPageConnect';
 
 export default function InterestedContents({ interestedContents }) {
 
-  const state = {
-    clientWidth: 1920
-  }
-  console.log("🚀 ~ file InterestedContents.jsx:8 ~ InterestedContents ~ state:", state)
-
+  const clientWidth = localStorage.getItem('clientWidth');
   const [viewInterestedContents, setViewInterestedContents] = useState(null);
 
   useEffect(() => {
     if (interestedContents && interestedContents.length > 0) {
       console.log("🚀 ~ file ContentPage.jsx:129 ~ useEffect ~ interestedContents:", interestedContents)
-      if (state.clientWidth > 400) {
+      if (clientWidth > 768) {
         setViewInterestedContents(interestedContents.slice(0, 3))
       } else {
         setViewInterestedContents(interestedContents)
       }
     }
 
-  }, [interestedContents, state.clientWidth]);
+  }, [interestedContents, clientWidth]);
 
   function onInterestedBtnClick(e) {
     e.preventDefault()
@@ -37,7 +33,7 @@ export default function InterestedContents({ interestedContents }) {
   return viewInterestedContents && viewInterestedContents.length > 0 && <div className={styles['connect-flex-site']}>
     <div className='title'>Interested</div>
     <div>
-      {state.clientWidth > 400 && (<div>
+      {clientWidth > 768 && (<div>
         {interestedContents.findIndex(c => c._id === viewInterestedContents[0]._id) !== 0 &&
           <button className={styles['prev']} value="-1" onClick={e => onInterestedBtnClick(e)} />
         }
@@ -46,7 +42,7 @@ export default function InterestedContents({ interestedContents }) {
         <ContentPageConnect
           contents={viewInterestedContents} />
       </div>
-      {state.clientWidth > 400 && (<div>
+      {clientWidth > 768 && (<div>
         {
           interestedContents.findIndex(c => c._id === viewInterestedContents[viewInterestedContents.length - 1]._id) !== interestedContents.length - 1 &&
           <button className={styles['next']} value="1" onClick={e => onInterestedBtnClick(e)} />

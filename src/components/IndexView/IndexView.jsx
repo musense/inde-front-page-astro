@@ -52,24 +52,13 @@ function IndexView() {
         });
     }
 
-    // scrollToTop(state.clientWidth)
 
 
-    // useEffect(() => {
-    //     console.log("🚀 ~ file: IndexView.jsx:33 ~ useEffect ~ state:", state)
-    //     console.log("🚀 ~ file: IndexView.jsx:32 ~ useEffect ~ state.clientWidth:", state.clientWidth)
-    //     if (!state.clientWidth) {
-    //         dispatch({
-    //             type: 'SET_WINDOW_SIZE',
-    //             payload: {
-    //                 width: window.innerWidth || document.documentElement.clientWidth ||
-    //                     document.body.clientWidth,
-    //                 height: window.innerHeight || document.documentElement.clientHeight ||
-    //                     document.body.clientHeigh
-    //             }
-    //         })
-    //     }
-    // }, [dispatch, state]);
+
+    useEffect(() => {
+        const clientWidth = localStorage.getItem("clientWidth")
+        scrollToTop(clientWidth)
+    }, []);
 
     return (
         <>

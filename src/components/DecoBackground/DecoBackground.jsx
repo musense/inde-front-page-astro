@@ -5,13 +5,9 @@ import { cx, css } from '@emotion/css'
 
 export default function DecoBackground({ repeat, position, offset = '-240px' }) {
 
-  // const repeat = type === 'content' ? 'repeat' : 'no-repeat'
-  // const position = type === 'content' ? 'absolute' : 'fixed';
-  // const repeat = type === 'content' ? 'repeat' : 'no-repeat'
-  // const position = type === 'content' ? 'absolute' : 'fixed';
-  let decoBackgroundFixed 
+  let decoBackgroundFixed
   const preventDefault = (e) => e.preventDefault();
-  
+
   useEffect(() => {
     decoBackgroundFixed = document.getElementById("deco-background-fixed");
     if (decoBackgroundFixed === null) {
@@ -30,14 +26,6 @@ export default function DecoBackground({ repeat, position, offset = '-240px' }) 
       ref.removeEventListener('touchend', preventDefault, false)
     }
   }, [decoBackgroundFixed]);
-  const cls1 = css`
-      --category-background-offset:${offset}
-  `
-  return <div id="deco-background-fixed" className={cx(
-    cls1,
-    styles['deco-background'],
-    styles[repeat],
-    styles[position],
-  )}
-  />;
+  const cls1 = css`--category-background-offset:${offset}`
+  return <div id="deco-background-fixed" className={cx(cls1, styles['deco-background'], styles[repeat], styles[position],)} />;
 }
