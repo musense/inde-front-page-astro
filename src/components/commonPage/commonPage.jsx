@@ -71,9 +71,10 @@ function CommonPage({ paramName, data, apiUrl }) {
         if (clientWidth <= 768)
             top = 80
         scroll.scrollTo(top, {
-            duration: 500,
+            duration: 100,
             delay: 0,
-            smooth: "easeInOutQuart",
+            smooth: false,
+            // smooth: "easeInOutQuart",
         });
     }, [clientWidth])
 
@@ -98,7 +99,7 @@ function CommonPage({ paramName, data, apiUrl }) {
             console.log("🚀 ~ file: commonPage.jsx:94 ~ CommonPage ~ data:", data)
             getTitleContentsByCategory(payload)
                 .then(res => {
-                    const { data: newCategoryContents } = res
+                    const newCategoryContents = res
                     console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ newCategoryContents:", newCategoryContents)
                     console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ data:", data)
                     if (JSON.stringify(newCategoryContents) !== JSON.stringify(data)) {
@@ -117,7 +118,7 @@ function CommonPage({ paramName, data, apiUrl }) {
             };
             getTagsContents(payload)
                 .then(res => {
-                    const { data: newTagContents } = res
+                    const newTagContents = res
                     console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ newTagContents:", newTagContents)
                     console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ data:", data)
                     if (JSON.stringify(newTagContents) !== JSON.stringify(data)) {

@@ -8,7 +8,6 @@ import NavButton from "./NavButton";
 import Hamburger from "@components/Hamburger/Hamburger";
 import NavBackDrop from "./NavBackDrop";
 
-const indexButtonList = ['home', 'lottery', 'sports', 'poker', 'matka', 'casino']
 
 function IndexNavbar() {
 
@@ -16,29 +15,27 @@ function IndexNavbar() {
   const hamburgerRef = useRef(null);
   const [active, setActive] = useState(false);
 
-  useEffect(() => {
-    const clientWidth = window.innerWidth || document.documentElement.clientWidth ||
-      document.body.clientWidth
-    const pathname = window.location.pathname
-    console.log("🚀 ~ file: IndexNavbar.jsx:18 ~ useEffect ~ clientWidth:", clientWidth)
-    console.log("🚀 ~ file: IndexNavbar.jsx:18 ~ useEffect ~ pathname:", pathname)
-    if (!(localStorage.getItem("clientWidth") && localStorage.getItem("clientWidth") == clientWidth)) {
-      localStorage.setItem("clientWidth", clientWidth)
-    }
-    if (!(localStorage.getItem("pathname") && localStorage.getItem("pathname") == pathname)) {
-      localStorage.setItem("pathname", window.location.pathname)
-    }
-  }, []);
   const stopPropagationAndToggleHamburger = useCallback((e) => {
     e.stopPropagation()
     toggleHamburger(e)
   }, [])
   const unCheck = useCallback((e) => {
-    console.log("🚀 ~ file: IndexNavbar.jsx:68 ~ unCheck ~ unCheck:", 'unCheck!!!!!!')
     const hamburgerCheck = hamburgerRef.current;
     setActive(false)
     hamburgerCheck.checked = false;
   }, [active])
+
+  useEffect(() => {
+    const clientWidth = window.innerWidth || document.documentElement.clientWidth ||
+      document.body.clientWidth
+    const pathname = window.location.pathname
+    setLastPagePathnameInLocalStorage();
+    setTimeout(() => {
+      setClientWidthInLocalStorage(clientWidth);
+      setPathnameInLocalStorage(pathname);
+      setCategoryNameInLocalStorage(pathname);
+    }, 0)
+  }, []);
   useEffect(() => {
     const clientWidth = localStorage.getItem("clientWidth")
     if (clientWidth <= 768) {
@@ -72,8 +69,6 @@ function IndexNavbar() {
       <NavWrapper
         active={active}
         navRef={navRef}
-        indexButtonList={indexButtonList}
-        unCheck={unCheck}
         zIndex={3}
       />
       <Hamburger
@@ -88,6 +83,45 @@ function IndexNavbar() {
 export default IndexNavbar;
 
 
+function setClientWidthInLocalStorage(clientWidth) {
+  if (!(localStorage.getItem("clientWidth") && localStorage.getItem("clientWidth") == clientWidth)) {
+    localStorage.setItem("clientWidth", clientWidth);
+  }
+}
+
+function setPathnameInLocalStorage(pathname) {
+  if (!(localStorage.getItem("pathname") && localStorage.getItem("pathname") == pathname)) {
+    pathname = window.location.pathname;
+    localStorage.setItem("pathname", window.location.pathname);
+  }
+}
+
+function setLastPagePathnameInLocalStorage() {
+  const lastPagePathname = localStorage.getItem("pathname");
+  console.log("🚀 ~ file: IndexNavbar.jsx:91 ~ setPathnameInLocalStorage ~ lastPagePathname:", lastPagePathname);
+  if (lastPagePathname) {
+    localStorage.setItem("last-page-pathname", lastPagePathname);
+  }
+}
+
+function setCategoryNameInLocalStorage(pathname) {
+
+  if (pathname.indexOf("/c/") !== -1) {
+    let categoryName;
+    if (pathname.indexOf("/p/") !== -1) {
+      categoryName = pathname.split("/c/")[1].split("/p/")[0];
+      localStorage.setItem("categoryName", categoryName);
+      console.log("🚀 ~ file: IndexNavbar.jsx:31 ~ useEffect ~ category:", categoryName);
+    } else {
+      categoryName = pathname.split("/c/")[1];
+      console.log("🚀 ~ file: IndexNavbar.jsx:31 ~ useEffect ~ categoryName:", categoryName);
+    }
+    localStorage.setItem("categoryName", categoryName);
+  } else {
+    localStorage.setItem("categoryName", 'home');
+  }
+}
+
 function Header({ children }) {
   return <Navbar id="navbar" className={`fixed-top ${styles.navbar} ${styles.show}`}>
     <Container className={styles.container}>
@@ -99,11 +133,12 @@ function Header({ children }) {
 function NavWrapper({
   active,
   zIndex,
-  navRef,
-  indexButtonList,
-  unCheck
+  navRef
 }) {
 
+  const [selectedCategoryName, setSelectedCategoryName] = useState(null);
+
+  const indexButtonList = ['home', 'lottery', 'sports', 'poker', 'matka', 'casino']
   const navHandler = useCallback((e) => {
     console.log(e.type)
     e.preventDefault()
@@ -120,26 +155,28 @@ function NavWrapper({
       navRef.current.addEventListener("wheel", navHandler)
       navRef.current.addEventListener("scroll", navHandler)
       navRef.current.addEventListener("touchmove", navHandler)
-      console.log("🚀 ~ file: IndexNavbar.jsx:151 ~ useEffect ~ navRef.current:", navRef.current)
       const liList = navRef.current.querySelectorAll("li")
       liList.forEach(li => {
         li.addEventListener("touchstart", liHandler)
-        console.log("🚀 ~ file: IndexNavbar.jsx:151 ~ useEffect ~ li:", li)
       })
+    }
+    const pathname = localStorage.getItem("pathname")
+    if (pathname && pathname.indexOf('/t/') !== -1) {
+      setSelectedCategoryName(undefined)
+    } else {
+      setSelectedCategoryName(localStorage.getItem('categoryName'))
     }
   }, [navRef.current]);
 
   const activeStyle = active ? 'active' : null
   return <Nav
-    style={{
-      zIndex: zIndex,
-    }}
+    style={{ zIndex: zIndex }}
     className={`${styles['nav-btn-wrapper']} ${styles[activeStyle]}`}>
     <div ref={navRef}>
       {indexButtonList.map((item, index) => {
         return <NavButton
-          closeMenu={unCheck}
           key={index}
+          selectedCategoryName={selectedCategoryName}
           category={item}
         />;
       })}

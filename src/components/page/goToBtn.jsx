@@ -9,7 +9,6 @@ export default function GoToBtn({ category, title, id, type }) {
         window.open(`/c/${category}/p/${contentID}`, "_self")
     }
     return (id && title) && (
-        // <div >
         <a title={title} href={`/c/${category}/p/${id}`}
             className={`${styles.btn} ${type === 'prev'
                 ? styles['prev-btn']
@@ -18,6 +17,5 @@ export default function GoToBtn({ category, title, id, type }) {
                     : ''}`}>{title}
 
         </a>
-        // </div>
     );
 }

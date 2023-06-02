@@ -17,7 +17,7 @@ const payload = {
   page: 1,
   apiUrl: apiUrl,
 };
-const { data: categoryItems } = await getTitleContentsByCategory(payload);
+const categoryItems = await getTitleContentsByCategory(payload);
 const categoryInfo = await getCategoryInfo(payload);
 export function getStaticPaths() {
   const navItems = ['lottery', 'sports', 'poker', 'matka', 'casino'];

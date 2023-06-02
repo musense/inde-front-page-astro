@@ -20,7 +20,7 @@ const payload = {
   page: 1,
   apiUrl: import.meta.env.VITE_SERVER_URL,
 };
-const { data: tagItems } = await getTagsContents(payload);
+const tagItems = await getTagsContents(payload);
 const tagInfo = await getTagInfo(payload);
 export async function getStaticPaths() {
   const payload = {
@@ -38,8 +38,8 @@ export async function getStaticPaths() {
 }
 
 const title = tagInfo.headTitle ? tagInfo.headTitle : tagInfo.name;
-const description = tagInfo.headDescription
-const keywords = tagInfo.headKeyword
+const description = tagInfo.headDescription;
+const keywords = tagInfo.headKeyword;
 console.log('🚀 ~ file: [tag].astro:16 ~ tag:', tag);
 console.log('🚀 ~ file: [tag].astro:16 ~ tagItems:', tagItems);
 ---

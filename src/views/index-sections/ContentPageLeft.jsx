@@ -54,16 +54,17 @@ function ContentPageLeft({
         </div>
         <div className={styles['main-content']}>
           <div>
-            <div
-              className={styles['title-main-content']}
-              dangerouslySetInnerHTML={{ __html: content.htmlContent }}
-            />
-
-            <a className={styles['play-now']}
-              href="https://www.zoobetin.com/?al=00034"
-              target="_blank"
-              rel="noopener noreferrer"
-            />
+            <div>
+              <div
+                className={styles['title-main-content']}
+                dangerouslySetInnerHTML={{ __html: content.htmlContent }}
+              />
+              <a className={styles['play-now']}
+                href="https://www.zoobetin.com/?al=00034"
+                target="_blank"
+                rel="noopener noreferrer"
+              />
+            </div>
             {(prevInfo || nextInfo) && <GoToContentPage
               prevInfo={prevInfo}
               nextInfo={nextInfo}

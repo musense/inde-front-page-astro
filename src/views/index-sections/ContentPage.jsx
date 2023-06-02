@@ -33,11 +33,11 @@ function ContentPage({ category, mainContent, relatedArticles, titleContents, id
   const scrollToPosition = useCallback((top = 520) => {
     if (!clientWidth) return
     if (clientWidth <= 768)
-      top = 250
+      top = top === 0 ? top : 250
     scroll.scrollTo(top, {
-      duration: 500,
+      duration: 100,
       delay: 0,
-      smooth: "easeInOutQuart",
+      smooth: false,
     });
   }, [clientWidth])
   const [_theContent_, setTheContent] = useState(null);
@@ -49,26 +49,18 @@ function ContentPage({ category, mainContent, relatedArticles, titleContents, id
 
     if (arr.length === 0) return null
     if (serialNumber === null || typeof serialNumber !== 'number') return null;
-    console.log("🚀 ~ file: ContentPage.jsx:66 ~ findOneByIdAndReturnPrevNextID ~ arr:", arr)
     const mapContentInto = (content) => content && ({
       _id: content._id,
       category: content.categories.name,
       title: content.title,
     })
     //* basically, the bigger the serialNumber is, the newer the editor is
-    console.log("🚀 ~ file: ContentPage.jsx:46 ~ findOneByIdAndReturnPrevNextID ~ serialNumber:", serialNumber)
     const theIndex = arr.findIndex(a => a.serialNumber === serialNumber)
-    console.log("🚀 ~ file: ContentPage.jsx:61 ~ findOneByIdAndReturnPrevNextID ~ theIndex:", theIndex)
-    console.log("🚀 ~ file: ContentPage.jsx:61 ~ findOneByIdAndReturnPrevNextID ~ preIndex:", theIndex === 0 ? null : theIndex - 1)
-    console.log("🚀 ~ file: ContentPage.jsx:61 ~ findOneByIdAndReturnPrevNextID ~ nextIndex:", theIndex === arr.length - 1 ? null : theIndex + 1)
     const prevContent = theIndex === 0 ? null : arr[theIndex - 1]
     const nextContent = theIndex === arr.length - 1 ? null : arr[theIndex + 1]
 
     const prevInfo = prevContent ? mapContentInto(prevContent) : null
     const nextInfo = nextContent ? mapContentInto(nextContent) : null
-
-    console.log("🚀 ~ file ContentPage.jsx:69 ~ findOneByIdAndReturnPrevNextID ~ prevInfo:", prevInfo)
-    console.log("🚀 ~ file ContentPage.jsx:69 ~ findOneByIdAndReturnPrevNextID ~ nextInfo:", nextInfo)
     setPrevInfo(prevInfo)
     setNextInfo(nextInfo)
   };
@@ -81,8 +73,6 @@ function ContentPage({ category, mainContent, relatedArticles, titleContents, id
     getTitleContentsByID(payload)
       .then(newMainContent => {
         let theContent = null;
-        console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ newMainContent:", newMainContent)
-        console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ mainContent:", mainContent)
         if (JSON.stringify(newMainContent) !== JSON.stringify(mainContent)) {
           setTheContent(newMainContent);
           theContent = newMainContent
@@ -95,8 +85,6 @@ function ContentPage({ category, mainContent, relatedArticles, titleContents, id
       .then((theContent) =>
         getTitleContents(payload)
           .then(newTitleContents => {
-            console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ newTitleContents:", newTitleContents)
-            console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ titleContents:", titleContents)
             if (JSON.stringify(newTitleContents) !== JSON.stringify(titleContents)) {
               findOneByIdAndReturnPrevNextID(newTitleContents, theContent.serialNumber)
             } else {
@@ -106,8 +94,6 @@ function ContentPage({ category, mainContent, relatedArticles, titleContents, id
       )
     getRelatedArticles(payload)
       .then(newRelatedArticles => {
-        console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ newRelatedArticles:", newRelatedArticles)
-        console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ relatedArticles:", relatedArticles)
         if (JSON.stringify(newRelatedArticles) !== JSON.stringify(relatedArticles)) {
           setInterestedContents(newRelatedArticles)
         } else {
@@ -118,7 +104,11 @@ function ContentPage({ category, mainContent, relatedArticles, titleContents, id
   }, [id, apiUrl]);
 
   useEffect(() => {
-    scrollToPosition()
+    if (localStorage.getItem('last-page-pathname') && localStorage.getItem('last-page-pathname').indexOf('/p/') !== -1) {
+      scrollToPosition()
+    } else {
+      scrollToPosition(0)
+    }
     let bannerImport
     if (clientWidth <= 768) {
       bannerImport = mobileItem.image

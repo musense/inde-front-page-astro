@@ -39,9 +39,9 @@ const { title, description, keywords, path } = Astro.props;
     </script>
   </head>
   <body>
-    <IndexNavbar client:only />
+    <IndexNavbar client:load />
     <slot />
-    <DarkFooter client:only />
+    <DarkFooter client:visible />
     <style is:global>
       @font-face {
         font-family: Lobster-Regular;
@@ -98,9 +98,9 @@ const { title, description, keywords, path } = Astro.props;
         --xl: 1200px;
         --xxl: 1400px;
       }
-      html {
+      /* html {
         scroll-behavior: smooth;
-      }
+      } */
       html,
       body {
         margin: 0;
