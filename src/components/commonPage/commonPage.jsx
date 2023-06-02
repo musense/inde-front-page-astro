@@ -7,10 +7,15 @@ import ConnectContent from '@components/ConnectContent/ConnectContent';
 import PageTemplate from "@components/page/pageTemplate";
 import DecoBackground from "@components/DecoBackground/DecoBackground";
 import Banner from '@components/Banner/Banner';
-
+import {
+    getTitleContentsByCategory
+} from '@assets/js/titleContents';
+import {
+    getTagsContents,
+} from '@assets/js/tagContents';
 import { animateScroll as scroll } from "react-scroll";
 
-function CommonPage({ paramName, data }) {
+function CommonPage({ paramName, data, apiUrl }) {
 
     // const currentPage = parseInt(localStorage.getItem('currentPage'));
     // const currentPageRef = useRef(parseInt(localStorage.getItem('currentPage')) || 1)
@@ -79,11 +84,52 @@ function CommonPage({ paramName, data }) {
     // const [viewContents, setViewContents] = useState(null);
     const [totalPages, setTotalPages] = useState(1);
 
-    useMemo(() => {
-        console.log("🚀 ~ file: commonPage.jsx:94 ~ CommonPage ~ data:", data)
-        setAllContent(data);
-        setTotalPages(Math.ceil(data.length / 6));
-    }, [data]);
+    useEffect(() => {
+        let payload = {
+            // categoryName: paramName,
+            page: 1,
+            apiUrl: apiUrl,
+        };
+        if (paramName.indexOf("#") === -1) {
+            payload = {
+                ...payload,
+                categoryName: paramName,
+            };
+            console.log("🚀 ~ file: commonPage.jsx:94 ~ CommonPage ~ data:", data)
+            getTitleContentsByCategory(payload)
+                .then(res => {
+                    const { data: newCategoryContents } = res
+                    console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ newCategoryContents:", newCategoryContents)
+                    console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ data:", data)
+                    if (JSON.stringify(newCategoryContents) !== JSON.stringify(data)) {
+                        setAllContent(newCategoryContents);
+                        setTotalPages(Math.ceil(newCategoryContents.length / 6));
+                    } else {
+                        setAllContent(data);
+                        setTotalPages(Math.ceil(data.length / 6));
+                    }
+                });
+        } else {
+            const tagName = paramName.split("# ")[1];
+            payload = {
+                ...payload,
+                tagName,
+            };
+            getTagsContents(payload)
+                .then(res => {
+                    const { data: newTagContents } = res
+                    console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ newTagContents:", newTagContents)
+                    console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ data:", data)
+                    if (JSON.stringify(newTagContents) !== JSON.stringify(data)) {
+                        setAllContent(newTagContents);
+                        setTotalPages(Math.ceil(newTagContents.length / 6));
+                    } else {
+                        setAllContent(data);
+                        setTotalPages(Math.ceil(data.length / 6));
+                    }
+                });
+        }
+    }, [data, paramName, apiUrl]);
 
     useEffect(() => {
         if (!paramName) return

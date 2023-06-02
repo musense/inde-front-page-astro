@@ -4,6 +4,11 @@ import IndexDecorationImage from "@components/IndexDecorationImage/IndexDecorati
 import ContentPageLeft from './ContentPageLeft';
 import InterestedContents from '@views/index-sections/InterestedContents';
 
+import {
+  getTitleContentsByID,
+  getRelatedArticles,
+  getTitleContents,
+} from '@assets/js/titleContents';
 import { animateScroll as scroll } from "react-scroll";
 
 
@@ -19,7 +24,7 @@ const pcItem = {
 };
 
 
-function ContentPage({ category, mainContent, relatedArticles, titleContents }) {
+function ContentPage({ category, mainContent, relatedArticles, titleContents, id, apiUrl }) {
 
   const clientWidth = localStorage.getItem('clientWidth');
 
@@ -52,8 +57,12 @@ function ContentPage({ category, mainContent, relatedArticles, titleContents }) 
     })
     //* basically, the bigger the serialNumber is, the newer the editor is
     console.log("🚀 ~ file: ContentPage.jsx:46 ~ findOneByIdAndReturnPrevNextID ~ serialNumber:", serialNumber)
-    const prevContent = arr.find(a => a.serialNumber === serialNumber - 1)
-    const nextContent = arr.find(a => a.serialNumber === serialNumber + 1)
+    const theIndex = arr.findIndex(a => a.serialNumber === serialNumber)
+    console.log("🚀 ~ file: ContentPage.jsx:61 ~ findOneByIdAndReturnPrevNextID ~ theIndex:", theIndex)
+    console.log("🚀 ~ file: ContentPage.jsx:61 ~ findOneByIdAndReturnPrevNextID ~ preIndex:", theIndex === 0 ? null : theIndex - 1)
+    console.log("🚀 ~ file: ContentPage.jsx:61 ~ findOneByIdAndReturnPrevNextID ~ nextIndex:", theIndex === arr.length - 1 ? null : theIndex + 1)
+    const prevContent = theIndex === 0 ? null : arr[theIndex - 1]
+    const nextContent = theIndex === arr.length - 1 ? null : arr[theIndex + 1]
 
     const prevInfo = prevContent ? mapContentInto(prevContent) : null
     const nextInfo = nextContent ? mapContentInto(nextContent) : null
@@ -63,11 +72,51 @@ function ContentPage({ category, mainContent, relatedArticles, titleContents }) 
     setPrevInfo(prevInfo)
     setNextInfo(nextInfo)
   };
+
   useEffect(() => {
-    setTheContent(mainContent)
-    setInterestedContents(relatedArticles)
-    findOneByIdAndReturnPrevNextID(titleContents, mainContent.serialNumber)
-  }, []);
+    const payload = {
+      _id: id,
+      apiUrl: apiUrl,
+    };
+    getTitleContentsByID(payload)
+      .then(newMainContent => {
+        let theContent = null;
+        console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ newMainContent:", newMainContent)
+        console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ mainContent:", mainContent)
+        if (JSON.stringify(newMainContent) !== JSON.stringify(mainContent)) {
+          setTheContent(newMainContent);
+          theContent = newMainContent
+        } else {
+          setTheContent(mainContent);
+          theContent = mainContent
+        }
+        return theContent
+      })
+      .then((theContent) =>
+        getTitleContents(payload)
+          .then(newTitleContents => {
+            console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ newTitleContents:", newTitleContents)
+            console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ titleContents:", titleContents)
+            if (JSON.stringify(newTitleContents) !== JSON.stringify(titleContents)) {
+              findOneByIdAndReturnPrevNextID(newTitleContents, theContent.serialNumber)
+            } else {
+              findOneByIdAndReturnPrevNextID(titleContents, theContent.serialNumber)
+            }
+          })
+      )
+    getRelatedArticles(payload)
+      .then(newRelatedArticles => {
+        console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ newRelatedArticles:", newRelatedArticles)
+        console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ relatedArticles:", relatedArticles)
+        if (JSON.stringify(newRelatedArticles) !== JSON.stringify(relatedArticles)) {
+          setInterestedContents(newRelatedArticles)
+        } else {
+          setInterestedContents(relatedArticles)
+        }
+      });
+
+  }, [id, apiUrl]);
+
   useEffect(() => {
     scrollToPosition()
     let bannerImport
@@ -87,8 +136,6 @@ function ContentPage({ category, mainContent, relatedArticles, titleContents }) 
       }))
     }
   }, [scrollToPosition, clientWidth]);
-
-
 
   return (
     <>

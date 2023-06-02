@@ -3,21 +3,19 @@ import Layout from '@layouts/Layout.astro';
 import CommonPage from '@components/commonPage/commonPage';
 import {
   getTitleContentsByCategory,
+  //! getCategoryInfo can not be changed by client side
   getCategoryInfo,
 } from '@assets/js/titleContents';
 
 const env: ImportMetaEnv = import.meta.env;
-console.log(
-  '🚀 ~ file: index.astro:8 ~ env.VITE_SERVER_URL:',
-  env.VITE_SERVER_URL
-);
+console.log('🚀 ~ file: index.astro:8 ~ apiUrl:', env.VITE_SERVER_URL);
 
 const { category } = Astro.params;
-
+const apiUrl = env.VITE_SERVER_URL;
 const payload = {
   categoryName: category,
   page: 1,
-  apiUrl: env.VITE_SERVER_URL,
+  apiUrl: apiUrl,
 };
 const { data: categoryItems } = await getTitleContentsByCategory(payload);
 const categoryInfo = await getCategoryInfo(payload);
@@ -52,5 +50,7 @@ console.log('🚀 ~ file: [category].astro:16 ~ categoryItems:', categoryItems);
     client:load
     paramName={category}
     data={categoryItems}
-    />
+    apiUrl={apiUrl}
+  />
+  <!-- client:only='react' -->
 </Layout>

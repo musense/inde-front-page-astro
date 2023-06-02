@@ -14,7 +14,7 @@ console.log(
 );
 
 const { tag } = Astro.params;
-
+const apiUrl = env.VITE_SERVER_URL;
 const payload = {
   tagName: tag,
   page: 1,
@@ -54,5 +54,6 @@ console.log('🚀 ~ file: [tag].astro:16 ~ tagItems:', tagItems);
     client:load
     paramName={`# ${tag}`}
     data={tagItems}
+    apiUrl={apiUrl}
   />
 </Layout>

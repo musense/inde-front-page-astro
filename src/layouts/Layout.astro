@@ -25,6 +25,18 @@ const { title, description, keywords, path } = Astro.props;
       name='theme-color'
       content='#fff'
     />
+    <!-- Google tag (gtag.js) -->
+    <script async src='https://www.googletagmanager.com/gtag/js?id=G-TJ54RSE86S'
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'G-TJ54RSE86S');
+    </script>
   </head>
   <body>
     <IndexNavbar client:only />

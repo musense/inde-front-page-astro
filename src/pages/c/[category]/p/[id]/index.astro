@@ -66,5 +66,7 @@ export async function getStaticPaths() {
     mainContent={mainContent}
     relatedArticles={relatedArticles}
     titleContents={titleContents}
+    id={id}
+    apiUrl={import.meta.env.VITE_SERVER_URL}
   />
 </Layout>
