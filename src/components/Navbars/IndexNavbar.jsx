@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 // reactstrap components
 import { Navbar, Nav, Container } from "reactstrap";
 
@@ -30,11 +30,11 @@ function IndexNavbar() {
       document.body.clientWidth
     const pathname = window.location.pathname
     setLastPagePathnameInLocalStorage();
-    setTimeout(() => {
-      setClientWidthInLocalStorage(clientWidth);
-      setPathnameInLocalStorage(pathname);
-      setCategoryNameInLocalStorage(pathname);
-    }, 0)
+    // setTimeout(() => {
+    setClientWidthInLocalStorage(clientWidth);
+    setPathnameInLocalStorage(pathname);
+
+    // }, 0)
   }, []);
   useEffect(() => {
     const clientWidth = localStorage.getItem("clientWidth")
@@ -90,6 +90,7 @@ function setClientWidthInLocalStorage(clientWidth) {
 }
 
 function setPathnameInLocalStorage(pathname) {
+  if (!pathname) return
   if (!(localStorage.getItem("pathname") && localStorage.getItem("pathname") == pathname)) {
     pathname = window.location.pathname;
     localStorage.setItem("pathname", window.location.pathname);
@@ -104,22 +105,25 @@ function setLastPagePathnameInLocalStorage() {
   }
 }
 
-function setCategoryNameInLocalStorage(pathname) {
-
+function setCategoryNameInLocalStorageAndReturn(pathname) {
+  if (!pathname) return
+  let categoryName;
   if (pathname.indexOf("/c/") !== -1) {
-    let categoryName;
     if (pathname.indexOf("/p/") !== -1) {
       categoryName = pathname.split("/c/")[1].split("/p/")[0];
       localStorage.setItem("categoryName", categoryName);
       console.log("🚀 ~ file: IndexNavbar.jsx:31 ~ useEffect ~ category:", categoryName);
     } else {
       categoryName = pathname.split("/c/")[1];
+      categoryName = categoryName.replace("/", "")
       console.log("🚀 ~ file: IndexNavbar.jsx:31 ~ useEffect ~ categoryName:", categoryName);
     }
     localStorage.setItem("categoryName", categoryName);
   } else {
-    localStorage.setItem("categoryName", 'home');
+    categoryName = 'home'
+    localStorage.setItem("categoryName", categoryName);
   }
+  return categoryName
 }
 
 function Header({ children }) {
@@ -159,14 +163,19 @@ function NavWrapper({
       liList.forEach(li => {
         li.addEventListener("touchstart", liHandler)
       })
-    }
-    const pathname = localStorage.getItem("pathname")
-    if (pathname && pathname.indexOf('/t/') !== -1) {
-      setSelectedCategoryName(undefined)
-    } else {
-      setSelectedCategoryName(localStorage.getItem('categoryName'))
+      const pathname = localStorage.getItem("pathname")
+      const selectedCategory = setCategoryNameInLocalStorageAndReturn(pathname);
+      console.log("🚀 ~ file: IndexNavbar.jsx:168 ~ useEffect ~ selectedCategory:", selectedCategory)
+      if (pathname && pathname.indexOf('/t/') !== -1) {
+        // return null;
+        setSelectedCategoryName(undefined)
+      } else {
+        // return selectedCategory
+        setSelectedCategoryName(selectedCategory)
+      }
     }
   }, [navRef.current]);
+
 
   const activeStyle = active ? 'active' : null
   return <Nav

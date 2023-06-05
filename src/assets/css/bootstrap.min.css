@@ -578,11 +578,11 @@ pre code {
 
 .container {
     width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
+    /* padding-right: 15px;
+    padding-left: 15px; */
     margin-right: auto;
     margin-left: auto;
-    padding: unset;
+    /* padding: unset; */
 }
 
 @media (min-width:576px) {
@@ -606,7 +606,7 @@ pre code {
 @media (min-width:1200px) {
     .container {
         margin: 0;
-        padding: 0;
+        /* padding: 0; */
         max-width: 100%
     }
 }
