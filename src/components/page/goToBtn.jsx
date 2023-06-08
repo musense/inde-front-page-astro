@@ -2,14 +2,12 @@ import React from 'react'
 // import { useNavigate } from "react-router-dom";
 import styles from './goToBtn.module.css';
 
-export default function GoToBtn({ category, title, id, type }) {
+export default function GoToBtn({ sitemapUrl, category, title, id, type }) {
+    // console.log("🚀 ~ file: goToBtn.jsx:6 ~ GoToBtn ~ sitemapUrl:", sitemapUrl)
     // const navigate = useNavigate()
-    function goToContent(contentID) {
-        if (contentID === null) return
-        window.open(`/c/${category}/p/${contentID}`, "_self")
-    }
+
     return (id && title) && (
-        <a title={title} href={`/c/${category}/p/${id}`}
+        <a title={title} href={sitemapUrl}
             className={`${styles.btn} ${type === 'prev'
                 ? styles['prev-btn']
                 : type === 'next'

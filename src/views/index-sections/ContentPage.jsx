@@ -10,6 +10,7 @@ import {
   getTitleContents,
 } from '@assets/js/titleContents';
 import { animateScroll as scroll } from "react-scroll";
+import { getRenamedContent } from '../../assets/js/sitemap';
 
 
 const mobileItem = {
@@ -25,6 +26,7 @@ const pcItem = {
 
 
 function ContentPage({ category, mainContent, relatedArticles, titleContents, id, apiUrl }) {
+  console.log("🚀 ~ file: ContentPage.jsx:28 ~ ContentPage ~ relatedArticles:", relatedArticles)
 
   const clientWidth = localStorage.getItem('clientWidth');
 
@@ -52,6 +54,7 @@ function ContentPage({ category, mainContent, relatedArticles, titleContents, id
     const mapContentInto = (content) => content && ({
       _id: content._id,
       category: content.categories.name,
+      sitemapUrl: getRenamedContent(content.sitemapUrl),
       title: content.title,
     })
     //* basically, the bigger the serialNumber is, the newer the editor is
@@ -66,7 +69,6 @@ function ContentPage({ category, mainContent, relatedArticles, titleContents, id
   };
 
   useEffect(() => {
-    if (relatedArticles === null) return
     const payload = {
       _id: id,
       apiUrl: apiUrl,

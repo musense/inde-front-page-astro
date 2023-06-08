@@ -4,11 +4,13 @@ import mainStyles from './navigateContainer.module.css'
 
 function NavigateContainer({
     category,
+    sitemapUrl,
     contentID: id,
     children,
     index,
     styles,
     customClassName = "title-container" }) {
+        console.log("🚀 ~ file: NavigateContainer.jsx:13 ~ sitemapUrl:", sitemapUrl)
         // console.log("🚀 ~ file: NavigateContainer.jsx:12 ~ id:", id)
 
     if (styles === null || styles === '' || styles === undefined) {
@@ -16,7 +18,8 @@ function NavigateContainer({
     }
 
     return (<a
-        href={`/c/${category}/p/${id}`}
+        // href={`/c/${category}/p/${id}`}
+        href={sitemapUrl}
         className={styles[customClassName]}>
         {children}
     </a>);

@@ -1,7 +1,7 @@
 import { instance } from "./AxiosInstance";
 import { getRenamedContent } from '@assets/js/sitemap';
 
-const navItems = ['lottery', 'sports', 'poker', 'matka', 'casino'];
+
 
 //* LIST
 export async function getCategoryList(payload) {

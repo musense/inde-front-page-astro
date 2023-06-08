@@ -56,7 +56,13 @@ export async function getTitleContentsByCategory(payload) {
   const response = await instance(apiUrl).get(`/categories/${categoryName}?limit=9999&pageNumber=${page}`)
     .then(res => res.data)
     // .then(res => { console.log(res); return res })
-    .then(res => res.data.filter(item => item.categories.name.toLowerCase() !== "uncategorized" && item.hidden === false))
+    .then(res => res.data.filter(item => item.categories.name.toLowerCase() !== "uncategorized"))
+    .then(categoryContents => categoryContents.map(content => {
+      return {
+        ...content,
+        sitemapUrl: getRenamedContent(content.sitemapUrl)
+      }
+    }))
   // .then(res => { console.log(res); return res })
   return response
 }
@@ -79,7 +85,13 @@ export async function getRelatedArticles(payload) {
   const response = await instance(apiUrl).get(`/editor/relatedArticles/${_id}`)
     .then(res => res.data)
     // .then(res => { console.log(res); return res })
-    .then(res => res.data.filter(item => item.categories.name.toLowerCase() !== "uncategorized" && item.hidden === false))
+    .then(res => res.data.filter(item => item.categories.name.toLowerCase() !== "uncategorized"))
+    .then(relatedArticles => relatedArticles.map(article => {
+      return {
+        ...article,
+        sitemapUrl: getRenamedContent(article.sitemapUrl)
+      }
+    }))
   // .then(res => { console.log(res); return res })
   return response
 }

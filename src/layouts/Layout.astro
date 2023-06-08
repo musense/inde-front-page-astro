@@ -2,6 +2,8 @@
 import BaseHeader from '@components/BaseHead.astro';
 import IndexNavbar from '@components/Navbars/IndexNavbar';
 import DarkFooter from '@components/Footers/DarkFooter';
+import { getRenamedContent } from '@assets/js/sitemap';
+import { getCategoryList } from '@assets/js/categoryContents';
 interface Props {
   title: string;
   description: string;
@@ -10,6 +12,22 @@ interface Props {
 }
 
 const { title, description, keywords, path } = Astro.props;
+
+const payload = {
+  apiUrl: import.meta.env.VITE_SERVER_URL,
+};
+const navItems = ['lottery', 'sports', 'poker', 'matka', 'casino'];
+const categoryList = await getCategoryList(payload)
+  .then((categoryList) => categoryList.filter((category) => navItems.includes(category.name)))
+  .then((categoryList) =>
+    categoryList.map((category) => {
+      return {
+        ...category,
+        sitemapUrl: getRenamedContent(category.sitemapUrl),
+      };
+    })
+  );
+console.log('🚀 ~ file: index.astro:16 ~ categoryList:', categoryList);
 ---
 
 <html lang='en-in'>
@@ -39,9 +57,10 @@ const { title, description, keywords, path } = Astro.props;
     </script>
   </head>
   <body>
-    <IndexNavbar
+  <IndexNavbar
       client:load
       apiUrl={import.meta.env.VITE_SERVER_URL}
+      categoryList={categoryList}
     />
     <slot />
     <DarkFooter client:visible />

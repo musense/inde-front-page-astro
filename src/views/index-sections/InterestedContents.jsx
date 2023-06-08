@@ -6,6 +6,7 @@ export default function InterestedContents({ interestedContents }) {
 
   const clientWidth = localStorage.getItem('clientWidth');
   const [viewInterestedContents, setViewInterestedContents] = useState(null);
+  console.log("🚀 ~ file: InterestedContents.jsx:9 ~ InterestedContents ~ viewInterestedContents:", viewInterestedContents)
 
   useEffect(() => {
     if (interestedContents && interestedContents.length > 0) {

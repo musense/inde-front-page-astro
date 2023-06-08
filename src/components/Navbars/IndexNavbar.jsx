@@ -10,7 +10,8 @@ import NavBackDrop from "./NavBackDrop";
 
 
 
-function IndexNavbar({ apiUrl }) {
+function IndexNavbar({ apiUrl, categoryList }) {
+  console.log("🚀 ~ file: IndexNavbar.jsx:14 ~ IndexNavbar ~ categoryList:", categoryList)
 
   const navRef = useRef(null);
   const hamburgerRef = useRef(null);
@@ -71,6 +72,7 @@ function IndexNavbar({ apiUrl }) {
         active={active}
         navRef={navRef}
         zIndex={3}
+        categoryList={categoryList}
       />
       <Hamburger
         ref={hamburgerRef}
@@ -109,13 +111,13 @@ function setLastPagePathnameInLocalStorage() {
 function setCategoryNameInLocalStorageAndReturn(pathname) {
   if (!pathname) return
   let categoryName;
-  if (pathname.indexOf("/c/") !== -1) {
-    if (pathname.indexOf("/p/") !== -1) {
+  if (pathname.indexOf("/c_") !== -1) {
+    if (pathname.indexOf("/p_") !== -1) {
       categoryName = pathname.split("/c/")[1].split("/p/")[0];
       localStorage.setItem("categoryName", categoryName);
       console.log("🚀 ~ file: IndexNavbar.jsx:31 ~ useEffect ~ category:", categoryName);
     } else {
-      categoryName = pathname.split("/c/")[1];
+      categoryName = pathname.split("/c_")[1];
       categoryName = categoryName.replace("/", "")
       console.log("🚀 ~ file: IndexNavbar.jsx:31 ~ useEffect ~ categoryName:", categoryName);
     }
@@ -138,12 +140,12 @@ function Header({ children }) {
 function NavWrapper({
   active,
   zIndex,
-  navRef
+  navRef,
+  categoryList
 }) {
 
   const [selectedCategoryName, setSelectedCategoryName] = useState(null);
-
-  const indexButtonList = ['home', 'lottery', 'sports', 'poker', 'matka', 'casino']
+  categoryList = [{ name: 'home', sitemapUrl: '/' }, ...categoryList]
   const navHandler = useCallback((e) => {
     console.log(e.type)
     e.preventDefault()
@@ -167,7 +169,7 @@ function NavWrapper({
       const pathname = localStorage.getItem("pathname")
       const selectedCategory = setCategoryNameInLocalStorageAndReturn(pathname);
       console.log("🚀 ~ file: IndexNavbar.jsx:168 ~ useEffect ~ selectedCategory:", selectedCategory)
-      if (pathname && pathname.indexOf('/t/') !== -1) {
+      if (pathname && pathname.indexOf('/tag_') !== -1) {
         // return null;
         setSelectedCategoryName(undefined)
       } else {
@@ -183,11 +185,11 @@ function NavWrapper({
     style={{ zIndex: zIndex }}
     className={`${styles['nav-btn-wrapper']} ${styles[activeStyle]}`}>
     <div ref={navRef}>
-      {indexButtonList.map((item, index) => {
+      {categoryList.map((category, index) => {
         return <NavButton
           key={index}
           selectedCategoryName={selectedCategoryName}
-          category={item}
+          category={category}
         />;
       })}
     </div>

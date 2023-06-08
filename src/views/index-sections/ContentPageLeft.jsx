@@ -12,6 +12,7 @@ function ContentPageLeft({
   content,
   prevInfo,
   nextInfo }) {
+  console.log("🚀 ~ file: ContentPageLeft.jsx:15 ~ nextInfo:", nextInfo)
 
   const clientWidth = localStorage.getItem("clientWidth");
 

@@ -14,7 +14,9 @@ function ContentPageConnect({ contents}) {
                 contentID={content._id}
                 styles={styles}
                 customClassName={"connect-flex-box"}
-                category={content.categories.name}>
+                category={content.categories.name}
+                sitemapUrl={content.sitemapUrl}
+                >
 
                 <div className={styles['connect-image']}>
 

@@ -7,15 +7,13 @@ import {
   getCategoryInfo,
 } from '@assets/js/titleContents';
 
-const env: ImportMetaEnv = import.meta.env;
 // console.log('🚀 ~ file: index.astro:8 ~ apiUrl:', env.VITE_SERVER_URL);
 
 const { category } = Astro.params;
-const apiUrl = env.VITE_SERVER_URL;
 const payload = {
   categoryName: category,
   page: 1,
-  apiUrl: apiUrl,
+  apiUrl: import.meta.env.VITE_SERVER_URL,
 };
 const categoryItems = await getTitleContentsByCategory(payload);
 const categoryInfo = await getCategoryInfo(payload);
@@ -50,7 +48,7 @@ const keywords = categoryInfo.headKeyword;
     client:load
     paramName={category}
     data={categoryItems}
-    apiUrl={apiUrl}
+    apiUrl={import.meta.env.VITE_SERVER_URL}
   />
   <!-- client:only='react' -->
 </Layout>

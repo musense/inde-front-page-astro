@@ -16,6 +16,7 @@ import {
 import { animateScroll as scroll } from "react-scroll";
 
 function CommonPage({ paramName, data, apiUrl }) {
+console.log("🚀 ~ file: commonPage.jsx:19 ~ CommonPage ~ data:", data)
 
     // const currentPage = parseInt(localStorage.getItem('currentPage'));
     // const currentPageRef = useRef(parseInt(localStorage.getItem('currentPage')) || 1)

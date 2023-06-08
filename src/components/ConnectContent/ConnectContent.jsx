@@ -6,7 +6,7 @@ import NavigateContainer from "@components/NavigateContainer/NavigateContainer";
 
 
 function ConnectContent({ index, content, item1 = null, category }) {
-    // console.log("🚀 ~ file ConnectContent.jsx:20 ~ ConnectContent ~ content:", content)
+    console.log("🚀 ~ file ConnectContent.jsx:20 ~ ConnectContent ~ content:", content)
 
     return (
         <NavigateContainer
@@ -16,6 +16,7 @@ function ConnectContent({ index, content, item1 = null, category }) {
             styles={styles}
             customClassName={"connect-container"}
             category={content.categories.name}
+            sitemapUrl={content.sitemapUrl}
         >
             <div className={styles['title-mainImage']}>
 
