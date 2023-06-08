@@ -7,6 +7,7 @@ import IndexDecorationImage from "@components/IndexDecorationImage/IndexDecorati
 function DarkFooter() {
 
   const pathname = localStorage.getItem("pathname");
+  console.log("🚀 ~ file: DarkFooter.jsx:10 ~ DarkFooter ~ pathname:", pathname)
 
   const footerClassName = (pathname) => {
     let footerClassName
@@ -15,10 +16,10 @@ function DarkFooter() {
     if (pathname === "/") {
       footerClassName = "index"
     }
-    else if (pathname.startsWith('/t/')) {
+    else if (pathname.startsWith('/tag_')) {
       footerClassName = "category"
     }
-    else if (pathname.startsWith('/c/') && pathname.indexOf('/p/') === -1) {
+    else if (pathname.startsWith('/p_')) {
       footerClassName = "category"
     }
     else {
@@ -31,7 +32,7 @@ function DarkFooter() {
     if (pathname === "/") {
       copyrightClassName = "index"
     }
-    else if (pathname.startsWith('/c/') && pathname.indexOf('/p/') === -1) {
+    else if (pathname.startsWith('/p/')) {
       copyrightClassName = "not-index"
     }
     else {

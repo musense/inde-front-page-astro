@@ -2,21 +2,28 @@ import React from 'react'
 import styles from './indexViewBlock.module.css';
 // import { Link } from 'react-router-dom';
 
-export default function IndexViewBlock({ title, article, image, altText, reverse = false }) {
-    const category =title.toLowerCase()
+export default function IndexViewBlock({ viewBlock, reverse = false }) {
+console.log("🚀 ~ file: IndexViewBlock.jsx:6 ~ IndexViewBlock ~ viewBlock:", viewBlock)
+
+
+    // title={item.title}
+    // image={item.image}
+    // altText={item.altText}
+    // article={item.article}
+    const category = viewBlock.title.toLowerCase()
     return <div style={reverse ? { flexDirection: 'row-reverse' } : { flexDirection: 'row' }}
         className={`${styles['index-paragraph-wrapper']} ${reverse ? styles['reverse'] : ''}`}>
         <div className={styles['index-type-image']}>
-            <img src={image.src} alt={altText}/>
+            <img src={viewBlock.image.src} alt={viewBlock.altText} />
         </div>
         <div className={styles['index-type-container']}>
             <div className={`${styles['index-type-title']} title`}>
-                {title}
+                {viewBlock.title}
             </div>
             <div className={styles['index-type-article']}>
-                {article}
+                {viewBlock.article}
             </div>
-            <a href={`/c/${category}`} className={styles['index-more-btn']} />
+            <a href={viewBlock.sitemapUrl} className={styles['index-more-btn']} />
         </div>
     </div>;
 }

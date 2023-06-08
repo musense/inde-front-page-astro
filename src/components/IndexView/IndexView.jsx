@@ -36,8 +36,14 @@ const indexViewBlockItems = [
     }
 ]
 
-function IndexView() {
-
+function IndexView({ categoryList }) {
+    console.log("🚀 ~ file: IndexView.jsx:40 ~ IndexView ~ categoryList:", categoryList)
+    const layoutBlockItems = indexViewBlockItems.map(item => {
+        return {
+            ...item,
+            sitemapUrl: categoryList.find(category => category.name === item.title.toLocaleLowerCase()).sitemapUrl
+        }
+    })
     const scrollToTop = (clientWidth) => {
         if (!clientWidth) return
 
@@ -72,14 +78,11 @@ function IndexView() {
                     imageType={'thin-line'}
                 />
             </div>
-            {indexViewBlockItems.map((item, index) => {
+            {layoutBlockItems.map((item, index) => {
                 return <IndexViewBlock
                     key={index}
                     reverse={index % 2 === 1 ? true : false}
-                    title={item.title}
-                    image={item.image}
-                    altText={item.altText}
-                    article={item.article}
+                    viewBlock={item}
                 />
             }
             )}

@@ -12,8 +12,8 @@ function ContentPageLeft({
   content,
   prevInfo,
   nextInfo }) {
-  console.log("🚀 ~ file: ContentPageLeft.jsx:15 ~ nextInfo:", nextInfo)
-
+  // console.log("🚀 ~ file: ContentPageLeft.jsx:15 ~ nextInfo:", nextInfo)
+  console.log("🚀 ~ file: ContentPageLeft.jsx:85 ~ content:", content)
   const clientWidth = localStorage.getItem("clientWidth");
 
   const Background = useCallback(() => {
@@ -43,7 +43,8 @@ function ContentPageLeft({
 
 
         <div className={styles['title-view']}>
-          <a id='contentPage-return-button' className={styles['main-title-decoration']} href={`/c/${content.categories.name}`}>Return</a>
+          <a id='contentPage-return-button' className={styles['main-title-decoration']} 
+          href={content.categories.sitemapUrl}>Return</a>
           <div className={styles['contentPageLeft-decoration-image-wrapper']}>
             <IndexDecorationImage
               marginTop={'2rem'}
@@ -82,6 +83,7 @@ function ContentPageLeft({
                 {content.tags.map((tag, index) =>
                   <Tag key={index} tag={tag} />
                 )}
+        
               </div>
             </div>
           </div>

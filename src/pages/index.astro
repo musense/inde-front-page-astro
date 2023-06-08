@@ -1,9 +1,27 @@
 ---
+import { getCategoryList } from '@assets/js/categoryContents';
 import Layout from '../layouts/Layout.astro';
 import IndexView from '@components/IndexView/IndexView';
+import { getRenamedContent } from '@assets/js/sitemap';
 const env: ImportMetaEnv = import.meta.env;
-// console.log('🚀 ~ file: index.astro:8 ~ env:', env);
-// console.log('🚀 ~ file: index.astro:8 ~ env.VITE_TITLE:', env.VITE_TITLE);
+
+const payload = {
+  apiUrl: import.meta.env.VITE_SERVER_URL,
+};
+const navItems = ['lottery', 'sports', 'poker', 'matka'];
+const categoryList = await getCategoryList(payload)
+  .then((categoryList) =>
+    categoryList.filter((category) => navItems.includes(category.name))
+  )
+  .then((categoryList) =>
+    categoryList.map((category) => {
+      return {
+        name: category.name,
+        sitemapUrl: getRenamedContent(category.sitemapUrl),
+      };
+    })
+  );
+console.log('🚀 ~ file: index.astro:16 ~ categoryList:', categoryList);
 ---
 
 <Layout
@@ -12,5 +30,8 @@ const env: ImportMetaEnv = import.meta.env;
   keywords={env.VITE_KEYWORDS}
   path={'/'}
 >
-  <IndexView client:idle />
+  <IndexView
+    categoryList={categoryList}
+    client:idle
+  />
 </Layout>

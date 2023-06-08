@@ -26,6 +26,7 @@ const pcItem = {
 
 
 function ContentPage({ category, mainContent, relatedArticles, titleContents, id, apiUrl }) {
+  console.log("🚀 ~ file: ContentPage.jsx:29 ~ ContentPage ~ mainContent:", mainContent)
   console.log("🚀 ~ file: ContentPage.jsx:28 ~ ContentPage ~ relatedArticles:", relatedArticles)
 
   const clientWidth = localStorage.getItem('clientWidth');
@@ -73,6 +74,11 @@ function ContentPage({ category, mainContent, relatedArticles, titleContents, id
       _id: id,
       apiUrl: apiUrl,
     };
+    // let theContent = null;
+    // setTheContent(mainContent);
+    // theContent = mainContent
+    // findOneByIdAndReturnPrevNextID(titleContents, theContent.serialNumber)
+    // setInterestedContents(relatedArticles)
     getTitleContentsByID(payload)
       .then(newMainContent => {
         let theContent = null;

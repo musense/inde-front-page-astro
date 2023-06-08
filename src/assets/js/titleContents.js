@@ -3,8 +3,57 @@ import { getRenamedContent } from '@assets/js/sitemap';
 
 export async function getTitleContentsByID(payload) {
   const { _id, apiUrl } = payload
+  console.log("🚀 ~ file: titleContents.js:6 ~ getTitleContentsByID ~ _id:", _id)
   const response = await instance(apiUrl).get(`/editor/${_id}`)
     .then(res => res.data)
+    .then(mainContent => {
+      return {
+        ...mainContent,
+        headTitle: mainContent.headTitle && mainContent.headTitle.length > 0
+          ? mainContent.headTitle : mainContent.title,
+        tags: mainContent.tags && mainContent.tags.length > 0 && mainContent.tags.map(tag => {
+          return {
+            ...tag,
+            sitemapUrl: getRenamedContent(tag.sitemapUrl)
+          }
+        }),
+        categories: {
+          _id: mainContent.categories._id,
+          name: mainContent.categories.name,
+          sitemapUrl: getRenamedContent(mainContent.categories.sitemapUrl)
+        }
+      }
+    })
+  console.log("🚀 ~ file: titleContents.js:9 ~ getTitleContentsByID ~ response:", response)
+  return response
+}
+
+//* LIST
+export async function getTitleContents(payload) {
+  const { apiUrl } = payload
+  const response = await instance(apiUrl).get(`/editor?limit=9999&pageNumber=1`)
+    .then(res => res.data)
+    .then(res => res.data.filter(item => item.categories.name.toLowerCase() !== "uncategorized"))
+    .then(res => { console.log(res); return res })
+    .then(res => res.map(content => {
+      return {
+        ...content,
+        headTitle: content.headTitle && content.headTitle.length > 0
+          ? content.headTitle : content.title,
+        tags: content.tags && content.tags.length > 0 && content.tags.map(tag => {
+          return {
+            ...tag,
+            sitemapUrl: getRenamedContent(tag.sitemapUrl)
+          }
+        }),
+        categories: {
+          _id: content.categories._id,
+          name: content.categories.name,
+          sitemapUrl: getRenamedContent(content.categories.sitemapUrl)
+        }
+      }
+    }))
+  // .then(res => { console.log(res); return res })
   return response
 }
 
@@ -22,23 +71,6 @@ export async function getEditorSitemapUrls(payload) {
     return [...acc, getRenamedContent(curr.sitemapUrl)]
   }, [])
   return idArray
-}
-//* LIST
-export async function getTitleContents(payload) {
-  const { apiUrl } = payload
-  const response = await instance(apiUrl).get(`/editor?limit=9999&pageNumber=1`)
-    .then(res => res.data)
-    // .then(res => { console.log(res); return res })
-    .then(res => res.data.filter(item => item.categories.name.toLowerCase() !== "uncategorized"))
-    .then(res => res.map(content => {
-      return {
-        ...content,
-        headTitle: content.headTitle && content.headTitle.length > 0
-          ? content.headTitle : content.title,
-      }
-    }))
-  // .then(res => { console.log(res); return res })
-  return response
 }
 
 export async function getCategoryInfo(payload) {

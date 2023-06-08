@@ -16,7 +16,7 @@ import {
 import { animateScroll as scroll } from "react-scroll";
 
 function CommonPage({ paramName, data, apiUrl }) {
-console.log("🚀 ~ file: commonPage.jsx:19 ~ CommonPage ~ data:", data)
+    console.log("🚀 ~ file: commonPage.jsx:19 ~ CommonPage ~ data:", data)
 
     // const currentPage = parseInt(localStorage.getItem('currentPage'));
     // const currentPageRef = useRef(parseInt(localStorage.getItem('currentPage')) || 1)
@@ -102,15 +102,18 @@ console.log("🚀 ~ file: commonPage.jsx:19 ~ CommonPage ~ data:", data)
             getTitleContentsByCategory(payload)
                 .then(res => {
                     const newCategoryContents = res
+                    let showData
                     console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ newCategoryContents:", newCategoryContents)
                     console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ data:", data)
                     if (JSON.stringify(newCategoryContents) !== JSON.stringify(data)) {
-                        setAllContent(newCategoryContents);
-                        setTotalPages(Math.ceil(newCategoryContents.length / 6));
+                        showData = newCategoryContents.filter(content => content.hidden === false)
+                        
                     } else {
-                        setAllContent(data);
-                        setTotalPages(Math.ceil(data.length / 6));
+                        showData = data.filter(content => content.hidden === false)
                     }
+                    console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ showData:", showData)
+                    setAllContent(showData);
+                    setTotalPages(Math.ceil(showData.length / 6));
                 });
         } else {
             const tagName = paramName.split("# ")[1];
@@ -121,15 +124,18 @@ console.log("🚀 ~ file: commonPage.jsx:19 ~ CommonPage ~ data:", data)
             getTagContents(payload)
                 .then(res => {
                     const newTagContents = res
+                    let showData
                     console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ newTagContents:", newTagContents)
                     console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ data:", data)
                     if (JSON.stringify(newTagContents) !== JSON.stringify(data)) {
-                        setAllContent(newTagContents);
-                        setTotalPages(Math.ceil(newTagContents.length / 6));
+                        showData = newTagContents.filter(content => content.hidden === false)
+                        
                     } else {
-                        setAllContent(data);
-                        setTotalPages(Math.ceil(data.length / 6));
+                        showData = data.filter(content => content.hidden === false)
                     }
+                    console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ showData:", showData)
+                    setAllContent(showData);
+                    setTotalPages(Math.ceil(showData.length / 6));
                 });
         }
     }, [data, paramName, apiUrl]);
@@ -146,9 +152,11 @@ console.log("🚀 ~ file: commonPage.jsx:19 ~ CommonPage ~ data:", data)
 
     const viewContents = useMemo(() => {
         if (__ALL_CONTENT__) {
+            console.log("🚀 ~ file: commonPage.jsx:97 ~ viewContents ~ __ALL_CONTENT__:", __ALL_CONTENT__)
             const start = 0 + (currentPage - 1) * 6,
                 end = currentPage * 6;
-            const viewContents = __ALL_CONTENT__.slice(start, end)
+            const viewContents = __ALL_CONTENT__
+                .slice(start, end)
             return viewContents
         }
         return []
