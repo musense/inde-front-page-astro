@@ -45,7 +45,7 @@ export async function getStaticPaths() {
 
     Promise.all(staticPaths).then((res) => {
       const paths = res.flat(2);
-      console.log('🚀 ~ file: index.astro:52 ~ Promise.all ~ paths:', paths);
+      // console.log('🚀 ~ file: index.astro:52 ~ Promise.all ~ paths:', paths);
       resolve(paths);
     });
   });

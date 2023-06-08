@@ -8,7 +8,7 @@ import {
 } from '@assets/js/titleContents';
 
 const env: ImportMetaEnv = import.meta.env;
-console.log('🚀 ~ file: index.astro:8 ~ apiUrl:', env.VITE_SERVER_URL);
+// console.log('🚀 ~ file: index.astro:8 ~ apiUrl:', env.VITE_SERVER_URL);
 
 const { category } = Astro.params;
 const apiUrl = env.VITE_SERVER_URL;
@@ -35,8 +35,8 @@ const title = categoryInfo.headTitle
   : categoryInfo.name;
 const description = categoryInfo.headDescription;
 const keywords = categoryInfo.headKeyword;
-console.log('🚀 ~ file: [category].astro:16 ~ category:', category);
-console.log('🚀 ~ file: [category].astro:16 ~ categoryItems:', categoryItems);
+// console.log('🚀 ~ file: [category].astro:16 ~ category:', category);
+// console.log('🚀 ~ file: [category].astro:16 ~ categoryItems:', categoryItems);
 ---
 
 <Layout

@@ -4,14 +4,14 @@ import CommonPage from '@components/commonPage/commonPage';
 import {
   getTagInfo,
   getTagList,
-  getTagsContents,
+  getTagContents,
 } from '@assets/js/tagContents';
 
 const env: ImportMetaEnv = import.meta.env;
-console.log(
-  '🚀 ~ file: index.astro:8 ~ env.VITE_SERVER_URL:',
-  env.VITE_SERVER_URL
-);
+// console.log(
+//   '🚀 ~ file: index.astro:8 ~ env.VITE_SERVER_URL:',
+//   env.VITE_SERVER_URL
+// );
 
 const { tag } = Astro.params;
 const apiUrl = env.VITE_SERVER_URL;
@@ -20,7 +20,7 @@ const payload = {
   page: 1,
   apiUrl: import.meta.env.VITE_SERVER_URL,
 };
-const tagItems = await getTagsContents(payload);
+const tagItems = await getTagContents(payload);
 const tagInfo = await getTagInfo(payload);
 export async function getStaticPaths() {
   const payload = {
@@ -40,8 +40,8 @@ export async function getStaticPaths() {
 const title = tagInfo.headTitle ? tagInfo.headTitle : tagInfo.name;
 const description = tagInfo.headDescription;
 const keywords = tagInfo.headKeyword;
-console.log('🚀 ~ file: [tag].astro:16 ~ tag:', tag);
-console.log('🚀 ~ file: [tag].astro:16 ~ tagItems:', tagItems);
+// console.log('🚀 ~ file: [tag].astro:16 ~ tag:', tag);
+// console.log('🚀 ~ file: [tag].astro:16 ~ tagItems:', tagItems);
 ---
 
 <Layout

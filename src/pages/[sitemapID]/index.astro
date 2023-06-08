@@ -1,0 +1,172 @@
+---
+import Layout from '@layouts/Layout.astro';
+import ContentPage from '@views/index-sections/ContentPage';
+import CommonPage from '@components/commonPage/commonPage';
+import {
+  getRelatedArticles,
+  getTitleContents,
+  getEditorSitemapUrls,
+  //! getCategoryInfo can not be changed by client side
+  getTitleContentsByCategory,
+  getCategoryInfo,
+} from '@assets/js/titleContents';
+
+import {
+  getTagSitemapUrls,
+  getTagInfo,
+  getTagContents,
+  getTagList,
+} from '@assets/js/tagContents';
+import {
+  getCategorySitemapUrls,
+  getCategoryList,
+} from '@assets/js/categoryContents';
+import { getRenamedContent } from '@assets/js/sitemap';
+
+const { sitemapID } = Astro.params;
+// console.log('🚀 ~ file: index.astro:81 ~ sitemapID:', sitemapID);
+
+let payload = {
+  apiUrl: import.meta.env.VITE_SERVER_URL,
+  _id: null,
+  page: 0,
+  categoryName: '',
+  tagName: '',
+};
+
+let titleContents,
+  mainContent,
+  relatedArticles,
+  categoryList,
+  categoryItems,
+  categoryInfo,
+  tagList,
+  tagItems,
+  tagInfo,  
+  editorTitleList;
+if (sitemapID?.indexOf('p_') !== -1) {
+  titleContents = await getTitleContents(payload);
+  mainContent = titleContents.find(
+    (content) => getRenamedContent(content.sitemapUrl) === sitemapID
+  );
+  payload = {
+    ...payload,
+    _id: mainContent._id,
+  };
+  relatedArticles = await getRelatedArticles(payload);
+}
+if (sitemapID?.indexOf('c_') !== -1) {
+  categoryList = await getCategoryList(payload);
+  mainContent = categoryList.find(
+    (category) => getRenamedContent(category.sitemapUrl) === sitemapID
+  );
+  payload = {
+    ...payload,
+    categoryName: mainContent.name,
+    page: 1,
+  };
+  categoryItems = await getTitleContentsByCategory(payload);
+  categoryInfo = await getCategoryInfo(payload);
+  editorTitleList = [...categoryItems];
+}
+if (sitemapID?.indexOf('tag_') !== -1) {
+  payload = {
+    ...payload,
+    page: 1,
+  };
+  tagList = await getTagList(payload);
+  mainContent = tagList.find(
+    (tag) => getRenamedContent(tag.sitemapUrl) === sitemapID
+  );
+
+  payload = {
+    ...payload,
+    tagName: mainContent.name,
+  };
+  tagItems = await getTagContents(payload);
+  tagInfo = await getTagInfo(payload);
+  editorTitleList = [...tagItems];
+}
+export async function getStaticPaths() {
+  const payload = {
+    apiUrl: import.meta.env.VITE_SERVER_URL,
+  };
+  const editorPromise = getEditorSitemapUrls(payload);
+  const tagPromise = getTagSitemapUrls(payload);
+  const categoryPromise = getCategorySitemapUrls(payload);
+  const sitemapUrl = await Promise.all([
+    editorPromise,
+    categoryPromise,
+    tagPromise,
+  ]).then((res) => res.flat());
+  console.log(
+    '🚀 ~ file: index.astro:40 ~ getStaticPaths ~ sitemapUrl:',
+    sitemapUrl
+  );
+
+  return sitemapUrl.map((url) => [
+    {
+      params: {
+        sitemapID: url,
+      },
+    },
+  ]);
+}
+
+const title = mainContent
+  ? mainContent.headTitle
+  : categoryInfo
+  ? categoryInfo.headTitle
+  : tagInfo
+  ? tagInfo.headTitle
+  : 'Zoonobet';
+const description = mainContent
+  ? mainContent.headDescription
+  : categoryInfo
+  ? categoryInfo.headDescription
+  : tagInfo
+  ? tagInfo.headDescription
+  : 'Zoonobet';
+const keywords = mainContent
+  ? mainContent.headKeyword
+  : categoryInfo
+  ? categoryInfo.headKeyword
+  : tagInfo
+  ? tagInfo.headKeyword
+  : 'Zoonobet';
+---
+
+<Layout
+  title={title}
+  description={description}
+  keywords={keywords}
+  path={'/'}
+>
+  {
+    sitemapID?.indexOf('p_') !== -1 ? (
+      <ContentPage
+        client:load
+        category={mainContent.category}
+        mainContent={mainContent}
+        relatedArticles={relatedArticles}
+        titleContents={titleContents}
+        id={mainContent._id}
+        apiUrl={import.meta.env.VITE_SERVER_URL}
+      />
+    ) : sitemapID?.indexOf('tag_') !== -1 ? (
+      <CommonPage
+        client:load
+        paramName={`# ${mainContent.name}`}
+        data={editorTitleList}
+        apiUrl={import.meta.env.VITE_SERVER_URL}
+      />
+    ) : (
+      <CommonPage
+        client:load
+        paramName={mainContent.name}
+        data={editorTitleList}
+        apiUrl={import.meta.env.VITE_SERVER_URL}
+      />
+    )
+  }
+</Layout>

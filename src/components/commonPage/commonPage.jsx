@@ -11,7 +11,7 @@ import {
     getTitleContentsByCategory
 } from '@assets/js/titleContents';
 import {
-    getTagsContents,
+    getTagContents,
 } from '@assets/js/tagContents';
 import { animateScroll as scroll } from "react-scroll";
 
@@ -20,8 +20,8 @@ function CommonPage({ paramName, data, apiUrl }) {
     // const currentPage = parseInt(localStorage.getItem('currentPage'));
     // const currentPageRef = useRef(parseInt(localStorage.getItem('currentPage')) || 1)
     const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem('currentPage')) || 1);
-    console.log("🚀 ~ file: commonPage.jsx:16 ~ CommonPage ~ currentPage:", currentPage)
-    console.log("🚀 ~ file: commonPage.jsx:21 ~ CommonPage ~ data:", data)
+    // console.log("🚀 ~ file: commonPage.jsx:16 ~ CommonPage ~ currentPage:", currentPage)
+    // console.log("🚀 ~ file: commonPage.jsx:21 ~ CommonPage ~ data:", data)
     const clientWidth = localStorage.getItem("clientWidth");
     const Background = useCallback(({ showOn }) => {
 
@@ -86,6 +86,7 @@ function CommonPage({ paramName, data, apiUrl }) {
     const [totalPages, setTotalPages] = useState(1);
 
     useEffect(() => {
+        if (data === null) return
         let payload = {
             // categoryName: paramName,
             page: 1,
@@ -116,7 +117,7 @@ function CommonPage({ paramName, data, apiUrl }) {
                 ...payload,
                 tagName,
             };
-            getTagsContents(payload)
+            getTagContents(payload)
                 .then(res => {
                     const newTagContents = res
                     console.log("🚀 ~ file: commonPage.jsx:97 ~ useEffect ~ newTagContents:", newTagContents)

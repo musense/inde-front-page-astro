@@ -39,7 +39,10 @@ const { title, description, keywords, path } = Astro.props;
     </script>
   </head>
   <body>
-    <IndexNavbar client:load />
+    <IndexNavbar
+      client:load
+      apiUrl={import.meta.env.VITE_SERVER_URL}
+    />
     <slot />
     <DarkFooter client:visible />
     <style is:global>

@@ -10,7 +10,7 @@ import {
 
 import mobileItemCarousel from "@assets/img/mobile/index/banner.png";
 import desktopCarousel from "@assets/img/index/banner.png";
-console.log("🚀 ~ file: Carousel.jsx:13 ~ desktopCarousel:", desktopCarousel)
+// console.log("🚀 ~ file: Carousel.jsx:13 ~ desktopCarousel:", desktopCarousel)
 
 const mobileItem = {
   image: mobileItemCarousel,

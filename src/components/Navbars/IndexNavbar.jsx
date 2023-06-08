@@ -9,7 +9,8 @@ import Hamburger from "@components/Hamburger/Hamburger";
 import NavBackDrop from "./NavBackDrop";
 
 
-function IndexNavbar() {
+
+function IndexNavbar({ apiUrl }) {
 
   const navRef = useRef(null);
   const hamburgerRef = useRef(null);

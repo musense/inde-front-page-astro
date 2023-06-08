@@ -66,6 +66,7 @@ function ContentPage({ category, mainContent, relatedArticles, titleContents, id
   };
 
   useEffect(() => {
+    if (relatedArticles === null) return
     const payload = {
       _id: id,
       apiUrl: apiUrl,
