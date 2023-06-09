@@ -18,14 +18,20 @@ const payload = {
 };
 const navItems = ['lottery', 'sports', 'poker', 'matka', 'casino'];
 const categoryList = await getCategoryList(payload)
-  .then((categoryList) => categoryList.filter((category) => navItems.includes(category.name)))
   .then((categoryList) =>
-    categoryList.map((category) => {
-      return {
-        ...category,
-        sitemapUrl: getRenamedContent(category.sitemapUrl),
-      };
-    })
+    categoryList.filter((category) => navItems.includes(category.name))
+  )
+  .then(
+    (categoryList) =>
+      navItems.map((item) => {
+        const category = categoryList.find(
+          (category) => category.name === item
+        );
+        return {
+          ...category,
+          sitemapUrl: getRenamedContent(category.sitemapUrl),
+        };
+      })
   );
 console.log('🚀 ~ file: index.astro:16 ~ categoryList:', categoryList);
 ---
@@ -57,7 +63,7 @@ console.log('🚀 ~ file: index.astro:16 ~ categoryList:', categoryList);
     </script>
   </head>
   <body>
-  <IndexNavbar
+    <IndexNavbar
       client:load
       apiUrl={import.meta.env.VITE_SERVER_URL}
       categoryList={categoryList}
