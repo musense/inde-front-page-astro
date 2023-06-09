@@ -23,7 +23,7 @@ console.log("🚀 ~ file: IndexViewBlock.jsx:6 ~ IndexViewBlock ~ viewBlock:", v
             <div className={styles['index-type-article']}>
                 {viewBlock.article}
             </div>
-            <a href={viewBlock.sitemapUrl} className={styles['index-more-btn']} />
+            <a href={`/${viewBlock.sitemapUrl}`} className={styles['index-more-btn']} />
         </div>
     </div>;
 }

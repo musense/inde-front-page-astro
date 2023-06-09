@@ -8,7 +8,7 @@ export default function NavButton({ selectedCategoryName, category }) {
 
     return (
         <NavItem>
-            <a href={category.sitemapUrl} target="_self"
+            <a href={`/${category.sitemapUrl}`} target="_self"
                 className={`${styles['navButton']} ${selectedCategoryName === category.name ? styles['active'] : ''}`}>
                 {CategoryShowName}
             </a>

@@ -11,6 +11,9 @@ export default function Logo({ active, zIndex }) {
         }
     }, [active]);
     return prevState
-        ? (<div style={{ zIndex: zIndex }} onClick={() => window.open('/', '_self')} className={styles['navbar-logo']}></div>)
+        ? (<a href={'/'}
+            target='_self'
+            style={{ zIndex: zIndex }}
+            className={styles['navbar-logo']}></a>)
         : (<div style={{ zIndex: zIndex }} className={styles['navbar-logo']}></div>)
 }

@@ -44,7 +44,7 @@ function ContentPageLeft({
 
         <div className={styles['title-view']}>
           <a id='contentPage-return-button' className={styles['main-title-decoration']} 
-          href={content.categories.sitemapUrl}>Return</a>
+          href={`/${content.categories.sitemapUrl}`}>Return</a>
           <div className={styles['contentPageLeft-decoration-image-wrapper']}>
             <IndexDecorationImage
               marginTop={'2rem'}

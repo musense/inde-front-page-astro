@@ -19,7 +19,7 @@ function NavigateContainer({
 
     return (<a
         // href={`/c/${category}/p/${id}`}
-        href={sitemapUrl}
+        href={`/${sitemapUrl}`}
         className={styles[customClassName]}>
         {children}
     </a>);

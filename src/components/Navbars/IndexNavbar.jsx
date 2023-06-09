@@ -145,7 +145,7 @@ function NavWrapper({
 }) {
 
   const [selectedCategoryName, setSelectedCategoryName] = useState(null);
-  categoryList = [{ name: 'home', sitemapUrl: '/' }, ...categoryList]
+  categoryList = [{ name: 'home', sitemapUrl: '' }, ...categoryList]
   const navHandler = useCallback((e) => {
     console.log(e.type)
     e.preventDefault()

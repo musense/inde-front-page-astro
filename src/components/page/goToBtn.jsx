@@ -7,7 +7,7 @@ export default function GoToBtn({ sitemapUrl, category, title, id, type }) {
     // const navigate = useNavigate()
 
     return (id && title) && (
-        <a title={title} href={sitemapUrl}
+        <a title={title} href={`/${sitemapUrl}`}
             className={`${styles.btn} ${type === 'prev'
                 ? styles['prev-btn']
                 : type === 'next'
