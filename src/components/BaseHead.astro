@@ -11,9 +11,11 @@ export interface Props {
 }
 const env: ImportMetaEnv = import.meta.env;
 
-console.log("🚀 ~ file: BaseHead.astro:13 ~ Astro.url.pathname:", Astro.url.pathname)
+console.log("🚀 ~ file: BaseHead.astro:14 ~ Astro.url.pathname:", Astro.url.pathname)
 console.log("🚀 ~ file: BaseHead.astro:14 ~ Astro.site:", Astro.site)
-// const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const url = Astro.site ? Astro.site : Astro.url
+const canonicalURL = new URL(Astro.url.pathname, url);
+
 
 const { title, description, keywords,image = '/placeholder-social.jpg' } = Astro.props;
 
@@ -34,7 +36,7 @@ if (env.DEV === true) {
 <meta name="generator" content={Astro.generator} />
 
 <!-- Canonical URL -->
-<!-- <link rel="canonical" href={canonicalURL} /> -->
+<link rel="canonical" href={canonicalURL} />
 
 <!-- Primary Meta Tags -->
 <title>{headTitle}</title>
@@ -44,14 +46,14 @@ if (env.DEV === true) {
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
+<meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={headTitle} />
 <meta property="og:description" content={headDescription} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:image" content={new URL(image, url)} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:url" content={canonicalURL} />
 <meta property="twitter:title" content={headTitle} />
 <meta property="twitter:description" content={headDescription} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
+<meta property="twitter:image" content={new URL(image, url)} />
