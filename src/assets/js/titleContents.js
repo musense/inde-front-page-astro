@@ -64,7 +64,6 @@ export async function getEditorSitemapUrls(payload) {
     .then(res => res.data)
     //唯二不產URL的只有uncategorized && 未發布
     .then(res => res.data.filter(item => item.categories.name.toLowerCase() !== "uncategorized"))
-    .then(titleContents => titleContents.filter(content => content.sitemapUrl.indexOf('/p_') !== -1))
 
 
   const idArray = response.reduce((acc, curr) => {

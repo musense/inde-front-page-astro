@@ -38,6 +38,7 @@ const indexViewBlockItems = [
 
 function IndexView({ categoryList }) {
     console.log("🚀 ~ file: IndexView.jsx:40 ~ IndexView ~ categoryList:", categoryList)
+    localStorage.setItem("categoryName", 'home');
     const layoutBlockItems = indexViewBlockItems.map(item => {
         return {
             ...item,

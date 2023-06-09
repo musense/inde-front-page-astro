@@ -144,6 +144,18 @@ function NavWrapper({
   categoryList
 }) {
 
+  // const selectedCategory = localStorage.getItem("categoryName")
+  // useEffect(() => {
+  //   const pathname = localStorage.getItem("pathname")
+  //   console.log("🚀 ~ file: IndexNavbar.jsx:168 ~ useEffect ~ selectedCategory:", selectedCategory)
+  //   if (pathname && pathname.indexOf('/tag_') !== -1) {
+  //     // return null;
+  //     setSelectedCategoryName(undefined)
+  //   } else {
+  //     // return selectedCategory
+  //     setSelectedCategoryName(selectedCategory)
+  //   }
+  // }, []);
   const [selectedCategoryName, setSelectedCategoryName] = useState(null);
   categoryList = [{ name: 'home', sitemapUrl: '' }, ...categoryList]
   const navHandler = useCallback((e) => {
@@ -166,16 +178,6 @@ function NavWrapper({
       liList.forEach(li => {
         li.addEventListener("touchstart", liHandler)
       })
-      const pathname = localStorage.getItem("pathname")
-      const selectedCategory = setCategoryNameInLocalStorageAndReturn(pathname);
-      console.log("🚀 ~ file: IndexNavbar.jsx:168 ~ useEffect ~ selectedCategory:", selectedCategory)
-      if (pathname && pathname.indexOf('/tag_') !== -1) {
-        // return null;
-        setSelectedCategoryName(undefined)
-      } else {
-        // return selectedCategory
-        setSelectedCategoryName(selectedCategory)
-      }
     }
   }, [navRef.current]);
 
@@ -188,7 +190,7 @@ function NavWrapper({
       {categoryList.map((category, index) => {
         return <NavButton
           key={index}
-          selectedCategoryName={selectedCategoryName}
+          // selectedCategoryName={selectedCategoryName}
           category={category}
         />;
       })}

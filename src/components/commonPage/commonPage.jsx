@@ -16,8 +16,10 @@ import {
 import { animateScroll as scroll } from "react-scroll";
 
 function CommonPage({ paramName, data, apiUrl }) {
+    console.log("🚀 ~ file: commonPage.jsx:19 ~ CommonPage ~ paramName:", paramName)
     console.log("🚀 ~ file: commonPage.jsx:19 ~ CommonPage ~ data:", data)
 
+    localStorage.setItem("categoryName", paramName);
     // const currentPage = parseInt(localStorage.getItem('currentPage'));
     // const currentPageRef = useRef(parseInt(localStorage.getItem('currentPage')) || 1)
     const [currentPage, setCurrentPage] = useState(parseInt(localStorage.getItem('currentPage')) || 1);

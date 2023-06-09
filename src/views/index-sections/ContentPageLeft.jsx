@@ -43,8 +43,8 @@ function ContentPageLeft({
 
 
         <div className={styles['title-view']}>
-          <a id='contentPage-return-button' className={styles['main-title-decoration']} 
-          href={`/${content.categories.sitemapUrl}`}>Return</a>
+          <a id='contentPage-return-button' className={styles['main-title-decoration']}
+            href={`/${content.categories.sitemapUrl}`}>Return</a>
           <div className={styles['contentPageLeft-decoration-image-wrapper']}>
             <IndexDecorationImage
               marginTop={'2rem'}
@@ -80,10 +80,10 @@ function ContentPageLeft({
             <div className={styles['content-tags']}>
               <div>Tag</div>
               <div>
-                {content.tags.map((tag, index) =>
+                {content.tags.length > 0 && content.tags.map((tag, index) =>
                   <Tag key={index} tag={tag} />
                 )}
-        
+
               </div>
             </div>
           </div>

@@ -29,6 +29,7 @@ function ContentPage({ category, mainContent, relatedArticles, titleContents, id
   console.log("🚀 ~ file: ContentPage.jsx:29 ~ ContentPage ~ mainContent:", mainContent)
   console.log("🚀 ~ file: ContentPage.jsx:28 ~ ContentPage ~ relatedArticles:", relatedArticles)
 
+  localStorage.setItem("categoryName", mainContent.categories.name);
   const clientWidth = localStorage.getItem('clientWidth');
 
   const [item, setItem] = useState();
