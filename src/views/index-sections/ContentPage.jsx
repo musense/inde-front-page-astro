@@ -61,8 +61,8 @@ function ContentPage({ category, mainContent, relatedArticles, titleContents, id
     })
     //* basically, the bigger the serialNumber is, the newer the editor is
     const theIndex = arr.findIndex(a => a.serialNumber === serialNumber)
-    const prevContent = theIndex === 0 ? null : arr[theIndex - 1]
-    const nextContent = theIndex === arr.length - 1 ? null : arr[theIndex + 1]
+    const prevContent = theIndex === arr.length - 1 ? null : arr[theIndex + 1]
+    const nextContent = theIndex === 0 ? null : arr[theIndex - 1]
 
     const prevInfo = prevContent ? mapContentInto(prevContent) : null
     const nextInfo = nextContent ? mapContentInto(nextContent) : null
