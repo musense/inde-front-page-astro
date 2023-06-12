@@ -21,6 +21,6 @@ export default defineConfig({
 		port: 4200,
 		host: true
 	},
-	site: 'https://www.zoonobet.com',
-	trailingSlash: 'ignore',
+	site         : 'https://www.zoonobet.com',
+	trailingSlash: 'never',
 });
